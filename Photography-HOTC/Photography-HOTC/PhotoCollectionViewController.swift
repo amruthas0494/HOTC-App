@@ -50,7 +50,8 @@ class PhotoCollectionViewController: UIViewController {
     
     
     @IBOutlet weak var displayFolderName: UILabel!
-    @IBOutlet weak var imageDisplay: UIImageView!
+  
+    @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var photoCollection: UICollectionView!
     let sectionInsets = UIEdgeInsets(
         top: 5.0,
@@ -70,31 +71,44 @@ class PhotoCollectionViewController: UIViewController {
         
         self.present(viewcontroller!, animated: true, completion: nil)
     }
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
         DispatchQueue.main.async {
             self.displayFolderName.text = self.photoImage
+            self.updatedFolder.uniqued()
+            self.HaldiArray.uniqued()
+            self.MehandiArray.uniqued()
+            self.MuhuratArray.uniqued()
+            self.ReceptionArray.uniqued()
+            self.PreweddinArray.uniqued()
+            self.SangeetArray.uniqued()
             
-            
-            self.imageDisplay.image = UIImage(contentsOfFile: self.BackgroundImage)
-            self.getPhotsFolderNames()
-            self.getcollectionbackground()
-            self.getHaldiImageFromDocumentDirectory()
-            self.getWeddingImageFromDocumentDirectory()
-            self.getReceptionImageFromDocumentDirectory()
-            self.getMehandiImageFromDocumentDirectory()
-            
-            
-            
-            self.getSangeetImageFromDocumentDirectory()
-            self.getPREweddingImageFromDocumentDirectory()
-            self.photoFolders.remove(at: 0)
-            
-            self.updatedFolder.append(contentsOf: self.photoFolders)
-            
-            print(self.updatedFolder)
+            self.backgroundImage.image = UIImage(contentsOfFile: self.BackgroundImage)
+            self.backgroundImage.autoresizingMask =  [.flexibleTopMargin, .flexibleHeight, .flexibleRightMargin, .flexibleLeftMargin, .flexibleTopMargin, .flexibleWidth]
+            //self.imageVIew.contentMode = .scaleToFill
+           // self.imageVIew.clipsToBounds = true
+            self.backgroundImage.contentMode = UIView.ContentMode.scaleAspectFill
+          
+//           // self.imageVIew.clipsToBounds = true
+//
+//            self.getPhotsFolderNames()
+//           // self.getcollectionbackground()
+//            self.getHaldiImageFromDocumentDirectory()
+//            self.getWeddingImageFromDocumentDirectory()
+//            self.getReceptionImageFromDocumentDirectory()
+//            self.getMehandiImageFromDocumentDirectory()
+//
+//
+//
+//            self.getSangeetImageFromDocumentDirectory()
+//            self.getPREweddingImageFromDocumentDirectory()
+//            self.photoFolders.remove(at: 0)
+//
+//            self.updatedFolder.append(contentsOf: self.photoFolders)
+//
+//            print(self.updatedFolder)
         }
         
     }
@@ -110,18 +124,55 @@ extension PhotoCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCollection", for: indexPath) as! PhotoCollectionCollectionViewCell
-        if bgArray.count == updatedFolder.count {
-            cell.photoCollection.image = bgArray[indexPath.item]
-        }
-        else if bgArray.count != updatedFolder.count {
-            cell.photoCollection.image = UIImage(named: "Wedding.jpg")
-        }
+       
+        
+//         if HaldiArray.isEmpty ||  MehandiArray.isEmpty ||  MuhuratArray.isEmpty || PreweddinArray.isEmpty || ReceptionArray.isEmpty ||  SangeetArray.isEmpty {
+//            cell.photoCollection.image = UIImage(named: "Wedding.jpg")
+//        }
+       
+          
+       
+           
+        
+            switch indexPath.item {
+            case 0 :
+              
+                cell.photoCollection.image = HaldiArray.first
+            case 1:
+               
+                cell.photoCollection.image = MehandiArray.first
+            case 2:
+                
+                cell.photoCollection.image = MuhuratArray.first
+                
+            case 3:
+                
+                cell.photoCollection.image = PreweddinArray.first
+               
+            case 4:
+               
+                cell.photoCollection.image = ReceptionArray.first
+              
+            case 5:
+                
+                cell.photoCollection.image = SangeetArray.first
+             
+            default:
+                print("others")
+          
+            }
+        
+        
+
+        
         cell.photoCollection.layer.borderWidth = 3
         cell.photoCollection.layer.cornerRadius = 3
         cell.photoCollection.layer.borderColor = UIColor.white.cgColor
         cell.photoCollection.layer.masksToBounds = false
         cell.photoCollection.clipsToBounds = true
         cell.photoLabel.text = updatedFolder[indexPath.item]
+        
+        
         eventname =  updatedFolder[indexPath.item]
         print(eventname)
         return cell
@@ -193,291 +244,5 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     
 }
 
-extension PhotoCollectionViewController  {
-    
-    func getPhotsFolderNames() {
-        
-        func contentsOfDirectoryAtPath(path: String) -> [String]? {
-            
-            guard let paths = try? FileManager.default.contentsOfDirectory(atPath: path + "/HOTC/SOBIA & ZOHAIB/PHOTOS/") else { return nil}
-            
-            let folderFilter = paths.filter({ $0 != ".DS_Store" })
-            photoFolders.append(contentsOf: folderFilter)
-            photoFolders.sort()
-            // print("folders",photoFolders)
-            
-            guard let background = try? FileManager.default.contentsOfDirectory(atPath: path + "/HOTC/SOBIA & ZOHAIB/PHOTOS/BACKGROUND/") else { return nil}
-            if background != nil {
-                let bgImages = background.filter({ $0 != ".DS_Store" })
-                backgroundImages.append(contentsOf: bgImages)
-                backgroundImages.sort()
-                //print(backgroundImages)
-            }
-            else {
-                print("No events background uploaded")
-            }
-            
-            guard let haldi = try? FileManager.default.contentsOfDirectory(atPath: path + "/HOTC/SOBIA & ZOHAIB/PHOTOS/HALDI/") else { return nil}
-            if haldi != nil {
-                let haldiFilter = haldi.filter({ $0 != ".DS_Store" })
-                HaldiImages.append(contentsOf: haldiFilter)
-                HaldiImages.sort()
-                // print(HaldiImages)
-            }
-            else {
-                print("No photos found in Haldi folder")
-            }
-            guard let wedding = try? FileManager.default.contentsOfDirectory(atPath: path + "/HOTC/SOBIA & ZOHAIB/PHOTOS/MUHURTHAM/") else { return nil}
-            if wedding != nil {
-                let mahuratFilter = wedding.filter({ $0 != ".DS_Store" })
-                MuhuratImages.append(contentsOf: mahuratFilter)
-                MuhuratImages.sort()
-                // print(MuhuratImages)
-            }
-            else {
-                print("No photos found in Wedding folder")
-            }
-            guard let reception = try? FileManager.default.contentsOfDirectory(atPath: path + "/HOTC/SOBIA & ZOHAIB/PHOTOS/RECEPTION/") else { return nil}
-            if reception != nil {
-                let receptionFilter = reception.filter({ $0 != ".DS_Store" })
-                ReceptionImage.append(contentsOf: receptionFilter)
-                ReceptionImage.sort()
-            }
-            else {
-                print("No photos found in reception folder")
-            }
-            
-            
-            guard let mehandi = try? FileManager.default.contentsOfDirectory(atPath: path + "/HOTC/SOBIA & ZOHAIB/PHOTOS/MEHANDI/") else { return nil}
-            if mehandi != nil {
-                let mehandiFilter = mehandi.filter({ $0 != ".DS_Store" })
-                MehandiImages.append(contentsOf: mehandiFilter)
-                MehandiImages.sort()
-                // print(MehandiImages)
-            }
-            else {
-                print("No photos found in Mehandi folder")
-            }
-            guard let sangeet = try? FileManager.default.contentsOfDirectory(atPath: path + "/HOTC/SOBIA & ZOHAIB/PHOTOS/SANGEET/") else { return nil}
-            if sangeet != nil {
-                let sangeetFilter = sangeet.filter({ $0 != ".DS_Store" })
-                sangeetImages.append(contentsOf: sangeetFilter)
-                sangeetImages.sort()
-                //  print(sangeetImages)
-            }
-            else {
-                print("No photos found in Sangeet folder")
-            }
-            guard let prewedding = try? FileManager.default.contentsOfDirectory(atPath: path + "/HOTC/SOBIA & ZOHAIB/PHOTOS/PREWEDDING/") else { return nil}
-            if prewedding != nil {
-                let preweddingFilter = prewedding.filter({ $0 != ".DS_Store" })
-                PreweddingImages.append(contentsOf: preweddingFilter)
-                PreweddingImages.sort()
-                // print(PreweddingImages)
-            }
-            else {
-                print("No photos found in prewedding folder")
-            }
-            return paths.map { aContent in (path as NSString).appendingPathComponent(aContent)}
-            
-        }
-        
-        let searchPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).last!
-        _ = contentsOfDirectoryAtPath(path: searchPath)
-        //print(contents)
-    }
-    
-    func getcollectionbackground(){
-        func getDirectoryPath() -> String {
-            let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("HOTC/SOBIA & ZOHAIB/PHOTOS/BACKGROUND")
-            
-            return path
-            
-        }
-        
-        let fileManager = FileManager.default
-        
-        for i in backgroundImages {
-            let imagePath = (getDirectoryPath() as NSString).appendingPathComponent(i)
-            //print(imagePath)
-            let urlString: String = imagePath
-            if fileManager.fileExists(atPath: urlString) {
-                let image = UIImage(contentsOfFile: urlString)
-                DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) { [weak self] in
-                    self!.bgArray.append(image!)
-                    
-                }
-                
-            } else {
-                print("No Image")
-            }
-        }
-        
-    }
-    
-    
-    func getHaldiImageFromDocumentDirectory() {
-        func getDirectoryPath() -> String {
-            let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("HOTC/SOBIA & ZOHAIB/PHOTOS/HALDI")
-            
-            return path
-            
-        }
-        
-        
-        let fileManager = FileManager.default
-        
-        for i in HaldiImages {
-            
-            let imagePath = (getDirectoryPath() as NSString).appendingPathComponent(i)
-            //print(imagePath)
-            let urlString: String = imagePath
-            if fileManager.fileExists(atPath: urlString) {
-                let image = UIImage(contentsOfFile: urlString)
-                DispatchQueue.main.async {
-                    self.HaldiArray.append(image!)
-                }
-                
-            } else {
-                print("No Image")
-            }
-        }
-    }
-    
-    
-    func getWeddingImageFromDocumentDirectory() {
-        func getDirectoryPath() -> String {
-            let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("HOTC/SOBIA & ZOHAIB/PHOTOS/MUHURTHAM")
-            return path
-            
-        }
-        
-        let fileManager = FileManager.default
-        
-        for i in MuhuratImages {
-            
-            let imagePath = (getDirectoryPath() as NSString).appendingPathComponent(i)
-            
-            let urlString: String = imagePath
-            if fileManager.fileExists(atPath: urlString) {
-                let image = UIImage(contentsOfFile: urlString)
-                DispatchQueue.main.async {
-                    
-                    self.MuhuratArray.append(image!)
-                    //  print("wedding images are",imageArray1)
-                }
-            } else {
-                print("No Image")
-            }
-        }
-    }
-    func getReceptionImageFromDocumentDirectory() {
-        func getDirectoryPath() -> String {
-            let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("HOTC/SOBIA & ZOHAIB/PHOTOS/RECEPTION")
-            return path
-            
-        }
-        
-        let fileManager = FileManager.default
-        
-        for i in ReceptionImage {
-            
-            let imagePath = (getDirectoryPath() as NSString).appendingPathComponent(i)
-            
-            let urlString: String = imagePath
-            if fileManager.fileExists(atPath: urlString) {
-                let image = UIImage(contentsOfFile: urlString)
-                DispatchQueue.main.async {
-                    
-                    self.ReceptionArray.append(image!)
-                }
-            } else {
-                print("No Image")
-            }
-        }
-    }
-    
-    
-    func getMehandiImageFromDocumentDirectory() {
-        
-        func getDirectoryPath() -> String {
-            let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("HOTC/SOBIA & ZOHAIB/PHOTOS/MEHANDI")
-            return path
-            
-        }
-        
-        let fileManager = FileManager.default
-        
-        for i in MehandiImages {
-            
-            let imagePath1 = (getDirectoryPath() as NSString).appendingPathComponent(i)
-            
-            let urlString1: String = imagePath1
-            if fileManager.fileExists(atPath: urlString1) {
-                let image = UIImage(contentsOfFile: urlString1)
-                DispatchQueue.main.async {
-                    
-                    self.MehandiArray.append(image!)
-                }
-            } else {
-                print("No Image")
-            }
-        }
-    }
-    
-    
-    
-    func getSangeetImageFromDocumentDirectory() {
-        func getDirectoryPath() -> String {
-            let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("HOTC/SOBIA & ZOHAIB/PHOTOS/SANGEET")
-            return path
-            
-        }
-        
-        let fileManager = FileManager.default
-        
-        for i in sangeetImages {
-            
-            let imagePath = (getDirectoryPath() as NSString).appendingPathComponent(i)
-            
-            let urlString: String = imagePath
-            if fileManager.fileExists(atPath: urlString) {
-                let image = UIImage(contentsOfFile: urlString)
-                DispatchQueue.main.async {
-                    
-                    self.SangeetArray.append(image!)
-                }
-            } else {
-                print("No Image")
-            }
-        }
-    }
-    
-    func getPREweddingImageFromDocumentDirectory() {
-        
-        func getDirectoryPath() -> String {
-            let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("HOTC/SOBIA & ZOHAIB/PHOTOS/PREWEDDING")
-            return path
-            
-        }
-        
-        let fileManager = FileManager.default
-        
-        for i in PreweddingImages {
-            
-            let imagePath = (getDirectoryPath() as NSString).appendingPathComponent(i)
-            
-            let urlString: String = imagePath
-            if fileManager.fileExists(atPath: urlString) {
-                let image = UIImage(contentsOfFile: urlString)
-                DispatchQueue.main.async {
-                    
-                    self.PreweddinArray.append(image!)
-                }
-            } else {
-                print("No Image")
-            }
-        }
-    }
-    
-}
+
+

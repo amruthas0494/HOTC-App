@@ -9,6 +9,7 @@
 import UIKit
 
 class SlideShowEPhotosViewController: UIViewController {
+    
     var currentCellIndex = 0
     
     var eventName: String = ""
@@ -19,7 +20,7 @@ class SlideShowEPhotosViewController: UIViewController {
         right:2.0)
     private var itemsPerRow: CGFloat = 1
     var slidePhotos : [UIImage] = []
-    var scheduleTime : Timer?
+    var scheduleTime = Timer()
     
    
     @IBOutlet weak var imageSlideCollection: UICollectionView!
@@ -38,19 +39,28 @@ class SlideShowEPhotosViewController: UIViewController {
         
         imageSlideCollection.dataSource = self
         imageSlideCollection.delegate = self
+        DispatchQueue.main.async {
+            self.scheduleTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.slideToNextPhoto), userInfo: nil, repeats: true)
+            
+        }
         
-        scheduleTime = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(slideToNextPhoto), userInfo: nil, repeats: true)
+        
     }
     @objc func slideToNextPhoto() {
         
-        if currentCellIndex < slidePhotos.count - 1 {
+        if currentCellIndex < slidePhotos.count  {
+            self.imageSlideCollection.scrollToItem(at: IndexPath(item: currentCellIndex, section: 0), at: .centeredHorizontally, animated: true)
             currentCellIndex += 1
+           
             
         }
         else {
             currentCellIndex = 0
+            let index = IndexPath.init(item: currentCellIndex, section: 0)
+            self.imageSlideCollection.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
+            currentCellIndex = 1
         }
-        imageSlideCollection.scrollToItem(at: IndexPath(item: currentCellIndex, section: 0), at: .right, animated: true)
+       
     }
     
     
@@ -73,7 +83,8 @@ extension SlideShowEPhotosViewController : UICollectionViewDataSource, UICollect
 
 extension SlideShowEPhotosViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 768, height: 1024)
+        let size = imageSlideCollection.frame.size
+        return CGSize(width: size.width, height: size.height)
         
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

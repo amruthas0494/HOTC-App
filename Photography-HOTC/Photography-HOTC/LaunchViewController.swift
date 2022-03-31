@@ -15,6 +15,7 @@ class LaunchViewController: UIViewController {
     var player: AVPlayer?
     var playerLayer: AVPlayerLayer?
     
+    @IBOutlet weak var launchView: UIView!
     func setupAVPlayer() {
         
         let videoURL = Bundle.main.url(forResource: "HOTC", withExtension: "mov") // Get video url
@@ -22,10 +23,11 @@ class LaunchViewController: UIViewController {
         let avPlayer = AVPlayer(url: videoURL!)
         let avPlayerLayer = AVPlayerLayer(player: avPlayer)
         
-        avPlayerLayer.videoGravity = .resizeAspectFill
-        avPlayerLayer.frame = self.view.bounds
-        self.view.layer.addSublayer(avPlayerLayer)
+        avPlayerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        avPlayerLayer.frame = self.launchView.frame
+        
         DispatchQueue.main.async {
+            self.launchView.layer.addSublayer(avPlayerLayer)
             avPlayer.play()
         }
         
@@ -44,9 +46,8 @@ class LaunchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
+        let manager = FileManager.default
+   
         
     }
    

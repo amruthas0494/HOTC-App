@@ -76,6 +76,9 @@ class EventVideoListViewController: UIViewController {
         super.viewDidLoad()
         
         self.displayBackground.image = UIImage(contentsOfFile: displayImage!)
+        self.displayBackground.autoresizingMask =  [.flexibleTopMargin, .flexibleHeight, .flexibleRightMargin, .flexibleLeftMargin, .flexibleTopMargin, .flexibleWidth]
+     
+        self.displayBackground.contentMode = UIView.ContentMode.scaleAspectFill
         self.folderName.text = labelName
         mySlider = UISlider(frame:CGRect(x: 0, y: 15, width: 150, height: 10))
         mySlider?.minimumValue = 0.0

@@ -8,6 +8,17 @@
 
 import UIKit
 
+
+//struct Model {
+//    let image: UIImage
+//    //let title: String
+//
+//    var inputSource: InputSource {
+//        return ImageSource(image: image)
+//    }
+//}
+
+
 class PhotoEventDisplayViewController: UIViewController {
     
     private let itemsPerRow: CGFloat = 3
@@ -20,6 +31,11 @@ class PhotoEventDisplayViewController: UIViewController {
     var viewImages: [UIImage] = []
     var labelName: String = ""
     var displayLabelName = ""
+    var selectedimage : UIImage?
+    
+    
+   
+   // var models = [Model]()
     
     @IBOutlet weak var nameOutlet: UILabel!
     
@@ -42,6 +58,10 @@ class PhotoEventDisplayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        for img in viewImages {
+//            models = [Model(image: img)]
+//        }
+//
         self.nameOutlet.text = labelName
         eventCollection.dataSource = self
         eventCollection.delegate = self
@@ -95,6 +115,7 @@ extension PhotoEventDisplayViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photEvent", for: indexPath) as! PhotoEventCollectionViewCell
         cell.eventPhotos.image = viewImages[indexPath.item]
+  
         return cell
     }
     
@@ -102,12 +123,20 @@ extension PhotoEventDisplayViewController : UICollectionViewDataSource {
 extension PhotoEventDisplayViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
+
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        let selectedItem = self.viewImages[indexPath.row]
+       // guard let indexPath = (sender as? UIView)?.findCollectionViewIndexPath() else { return }
+             // guard let detailViewController = segue.destination as? DetailViewController else { return }
+       
+             
         let viewcontroller1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "toSwipe") as?  SwipeImageViewController
         
         
         viewcontroller1?.headerLabel = labelName
+        viewcontroller1?.selectedImage = selectedItem
         viewcontroller1?.images = viewImages
+        
         self.present(viewcontroller1!, animated: true, completion: nil)
     }
     

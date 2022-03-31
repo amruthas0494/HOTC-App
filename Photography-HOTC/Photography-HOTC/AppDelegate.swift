@@ -22,78 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      let manager = FileManager.default
                     let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first!
                     print(url.path)
-                    let newFolderUrl = url.appendingPathComponent("HOTC").appendingPathComponent("SOBIA & ZOHAIB")
-                    
-                    let newFolderPhoto = newFolderUrl.appendingPathComponent("PHOTOS")
-                    do {
-                       try manager.createDirectory(at: newFolderPhoto, withIntermediateDirectories: true, attributes: [:])
-                    }
-                    catch{
-                        print("error")
-                    }
-        let background = newFolderPhoto.appendingPathComponent("BACKGROUND")
-                   let Prewedding = newFolderPhoto.appendingPathComponent("PREWEDDING")
-                    let Haldi = newFolderPhoto.appendingPathComponent("HALDI")
-                    let Mehandi = newFolderPhoto.appendingPathComponent("MEHANDI")
-                    let Sangeet = newFolderPhoto.appendingPathComponent("SANGEET")
-                    let Reception = newFolderPhoto.appendingPathComponent("RECEPTION")
-                    let Muhurtham = newFolderPhoto.appendingPathComponent("MUHURTHAM")
-                    let directoryNames = [background, Prewedding,Haldi, Mehandi, Sangeet, Reception, Muhurtham]
-                    
-                    for i in directoryNames {
-                        do {
-                            try manager.createDirectory(at: i, withIntermediateDirectories: true, attributes: [:])
-                        }
-                        catch{
-                            print("error")
-                        }
-                    }
-       
-        let newFolderVideo = newFolderUrl.appendingPathComponent("VIDEOS")
-               do {
-                   try manager.createDirectory(at: newFolderVideo, withIntermediateDirectories: true, attributes: [:])
-               }
-               catch{
-                   print("error")
-               }
-                let background1 = newFolderVideo.appendingPathComponent("BACKGROUND")
-               let Prewedding1 = newFolderVideo.appendingPathComponent("PREWEDDING SHOOT")
-               let Haldi1 = newFolderVideo.appendingPathComponent("HALDI")
-               let Mehandi1 = newFolderVideo.appendingPathComponent("MEHANDI")
-               let Sangeet1 = newFolderVideo.appendingPathComponent("SANGEET")
-               let Reception1 = newFolderVideo.appendingPathComponent("RECEPTION")
-               let Muhurtham1 = newFolderVideo.appendingPathComponent("MUHURTHAM")
-               let directoryNames1 = [background1, Prewedding1, Haldi1, Mehandi1, Sangeet1, Reception1, Muhurtham1]
-               for videos in directoryNames1 {
-                   do {
-                       try manager.createDirectory(at: videos, withIntermediateDirectories: true, attributes: [:])
-                   }
-                   catch{
-                       print("error")
-                   }
-               }
-        let folder1 = Prewedding1.appendingPathComponent("Thumbnails")
-                      let folder2 = Haldi1.appendingPathComponent("Thumbnails")
-                      let folder3 = Mehandi1.appendingPathComponent("Thumbnails")
-                      let folder4 = Sangeet1.appendingPathComponent("Thumbnails")
-                      let folder5 = Reception1.appendingPathComponent("Thumbnails")
-                      let folder6 = Muhurtham1.appendingPathComponent("Thumbnails")
-                      let newdirectory = [folder1, folder2, folder3, folder4, folder5, folder6]
-                      for folder in newdirectory {
-                          do {
-                              try manager.createDirectory(at: folder, withIntermediateDirectories: true, attributes: [:])
-                          }
-                          catch{
-                              print("error")
-                          }
-                      }
-        let newBackground = newFolderUrl.appendingPathComponent("BACKGROUND")
-                        do {
-                           try manager.createDirectory(at: newBackground, withIntermediateDirectories: false, attributes: [:])
-                        }
-                        catch{
-                            print("error")
-                        }
+                  
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.default, options: .mixWithOthers) //For playing volume when phone is on silent
         } catch {
