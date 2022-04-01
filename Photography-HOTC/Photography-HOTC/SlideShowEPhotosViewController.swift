@@ -40,28 +40,27 @@ class SlideShowEPhotosViewController: UIViewController {
         
         slideCollection.dataSource = self
         slideCollection.delegate = self
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             self.scheduleTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.slideToNextPhoto), userInfo: nil, repeats: true)
             
-        }
+        //}
         
         
     }
     @objc func slideToNextPhoto() {
        
-        if currentCellIndex < slidePhotos.count  {
-            self.slideCollection.scrollToItem(at: IndexPath(item: currentCellIndex, section: 0), at: .centeredHorizontally, animated: true)
+        if currentCellIndex < slidePhotos.count {
+                 let index = IndexPath.init(item: currentCellIndex, section: 0)
+                 self.slideCollection.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+                // pageView.currentPage = counter
             currentCellIndex += 1
-           
-            
-        }
-        
-        else {
-            currentCellIndex = 0
-            let index = IndexPath.init(item: currentCellIndex, section: 0)
-            self.slideCollection.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
-            currentCellIndex = 1
-        }
+            } else {
+                currentCellIndex = 0
+                 let index = IndexPath.init(item: currentCellIndex, section: 0)
+                 self.slideCollection.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
+                  //pageView.currentPage = counter
+                currentCellIndex = 1
+              }
         
     }
     
@@ -71,10 +70,12 @@ class SlideShowEPhotosViewController: UIViewController {
 extension SlideShowEPhotosViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return slidePhotos.count
+     
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "slideshow", for: indexPath) as? SlideShowPhotoCollectionViewCell
+        print(slidePhotos)
         cell?.slideImage.image = slidePhotos[indexPath.item]
         cell?.slideImage.contentMode = .scaleAspectFill
         return cell ?? UICollectionViewCell()

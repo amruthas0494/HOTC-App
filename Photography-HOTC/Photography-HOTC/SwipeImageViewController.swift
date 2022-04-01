@@ -33,10 +33,10 @@ class SwipeImageViewController: UIViewController {
     
     
     @IBAction func playTapped(_ sender: UIButton) {
-        let viewcontroller1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "toSlideshowPhoto") as?  SlideShowEPhotosViewController
+        let viewcontroller1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "toPhotoSlide") as?  PhotoSliderViewController
         
          // viewcontroller1?.slidedImage = selectedImage
-        viewcontroller1?.slidePhotos = images
+        viewcontroller1?.slideImages = images
         self.present(viewcontroller1!, animated: true, completion: nil)
         
     }

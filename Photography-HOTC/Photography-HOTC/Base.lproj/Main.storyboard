@@ -1200,7 +1200,103 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EAI-rE-rqm" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3631" y="-39"/>
+            <point key="canvasLocation" x="2916" y="-789"/>
+        </scene>
+        <!--Photo Slider View Controller-->
+        <scene sceneID="3QF-gE-cwv">
+            <objects>
+                <viewController storyboardIdentifier="toPhotoSlide" modalPresentationStyle="fullScreen" id="4gY-hJ-HmU" customClass="PhotoSliderViewController" customModule="Photography_HOTC" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3dr-MP-HhB">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wuY-36-B5I">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="OJm-yf-R7n">
+                                    <size key="itemSize" width="769" height="1014"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="photoSlider" id="cBd-n3-fL5" customClass="PhotoSliderCollectionViewCell" customModule="Photography_HOTC" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="5" width="769" height="1014"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="7Is-34-Ftc">
+                                            <rect key="frame" x="0.0" y="0.0" width="769" height="1014"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9gs-bY-znL">
+                                                    <rect key="frame" x="0.0" y="20" width="769" height="1004"/>
+                                                </imageView>
+                                                <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L5R-Zj-yXa">
+                                                    <rect key="frame" x="0.0" y="20" width="769" height="1004"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="9gs-bY-znL" firstAttribute="top" secondItem="7Is-34-Ftc" secondAttribute="top" constant="20" id="7l1-XA-2Eu"/>
+                                                <constraint firstItem="L5R-Zj-yXa" firstAttribute="top" secondItem="7Is-34-Ftc" secondAttribute="top" constant="20" id="96U-GT-9MH"/>
+                                                <constraint firstAttribute="trailing" secondItem="L5R-Zj-yXa" secondAttribute="trailing" id="B5Y-uC-7ck"/>
+                                                <constraint firstAttribute="bottom" secondItem="9gs-bY-znL" secondAttribute="bottom" constant="-10" id="ESR-FJ-Xmk"/>
+                                                <constraint firstItem="9gs-bY-znL" firstAttribute="trailing" secondItem="7Is-34-Ftc" secondAttribute="trailing" id="H6K-SV-h5n"/>
+                                                <constraint firstItem="L5R-Zj-yXa" firstAttribute="leading" secondItem="7Is-34-Ftc" secondAttribute="leading" id="IiR-Sw-eX2"/>
+                                                <constraint firstAttribute="bottom" secondItem="L5R-Zj-yXa" secondAttribute="bottom" constant="-10" id="NV8-Jo-aZj"/>
+                                                <constraint firstItem="9gs-bY-znL" firstAttribute="leading" secondItem="7Is-34-Ftc" secondAttribute="leading" id="wK6-Uj-gkS"/>
+                                                <constraint firstItem="L5R-Zj-yXa" firstAttribute="trailing" secondItem="7Is-34-Ftc" secondAttribute="trailing" id="wya-bQ-1cd"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="769" height="1014"/>
+                                        <connections>
+                                            <outlet property="slideImage" destination="9gs-bY-znL" id="lyc-3g-ytv"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oiL-af-fWw">
+                                <rect key="frame" x="60" y="914" width="60" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="C9J-vq-9Qs"/>
+                                    <constraint firstAttribute="height" constant="60" id="H5w-NW-ggD"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="hbj-O9-UAA"/>
+                                    <constraint firstAttribute="width" constant="60" id="q6k-FC-7SC"/>
+                                </constraints>
+                                <state key="normal" image="video_player-3"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="pauseTapped:" destination="1D8-l8-wnz" eventType="touchUpInside" id="7ic-EG-RCS"/>
+                                    <action selector="pauseTapped:" destination="4gY-hJ-HmU" eventType="touchUpInside" id="za9-35-gaA"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appstore" id="pSk-b3-G6C">
+                                <rect key="frame" x="641" y="907" width="75" height="75"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="UaJ-ZL-Z1h"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="wuY-36-B5I" firstAttribute="bottom" secondItem="UaJ-ZL-Z1h" secondAttribute="bottom" id="Vak-Wy-vNZ"/>
+                            <constraint firstItem="wuY-36-B5I" firstAttribute="leading" secondItem="UaJ-ZL-Z1h" secondAttribute="leading" id="Xmi-7Y-vFd"/>
+                            <constraint firstItem="wuY-36-B5I" firstAttribute="top" secondItem="3dr-MP-HhB" secondAttribute="top" id="eEV-px-FIi"/>
+                            <constraint firstItem="oiL-af-fWw" firstAttribute="leading" secondItem="UaJ-ZL-Z1h" secondAttribute="leading" constant="60" id="m7f-i3-vC7"/>
+                            <constraint firstItem="wuY-36-B5I" firstAttribute="trailing" secondItem="UaJ-ZL-Z1h" secondAttribute="trailing" id="pkN-DP-9bL"/>
+                            <constraint firstItem="UaJ-ZL-Z1h" firstAttribute="bottom" secondItem="oiL-af-fWw" secondAttribute="bottom" constant="50" id="tLG-XZ-GPb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="photoSlider" destination="wuY-36-B5I" id="FNV-p6-zyo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FPc-Yh-I96" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3253" y="17"/>
         </scene>
     </scenes>
     <resources>

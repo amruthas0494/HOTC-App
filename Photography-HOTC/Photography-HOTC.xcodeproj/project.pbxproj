@@ -39,6 +39,8 @@
 		18E0189F272BDE75008D8B6A /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0189E272BDE75008D8B6A /* LaunchViewController.swift */; };
 		18E018A3272BEB38008D8B6A /* HOTC.mov in Resources */ = {isa = PBXBuildFile; fileRef = 18E018A2272BEB38008D8B6A /* HOTC.mov */; };
 		18FE81EE273BED600080C5EF /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81ED273BED600080C5EF /* ItemModel.swift */; };
+		FD3F17C527F6D71F009B38A6 /* PhotoSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F17C427F6D71F009B38A6 /* PhotoSliderViewController.swift */; };
+		FD3F17C727F6DB81009B38A6 /* PhotoSliderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F17C627F6DB81009B38A6 /* PhotoSliderCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,8 @@
 		18E0189E272BDE75008D8B6A /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		18E018A2272BEB38008D8B6A /* HOTC.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = HOTC.mov; sourceTree = "<group>"; };
 		18FE81ED273BED600080C5EF /* ItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
+		FD3F17C427F6D71F009B38A6 /* PhotoSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoSliderViewController.swift; path = Photos/PhotoSliderViewController.swift; sourceTree = "<group>"; };
+		FD3F17C627F6DB81009B38A6 /* PhotoSliderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoSliderCollectionViewCell.swift; path = Photos/PhotoSliderCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +131,8 @@
 		183BCD222729A9C0000C3C2C /* Photos */ = {
 			isa = PBXGroup;
 			children = (
+				FD3F17C627F6DB81009B38A6 /* PhotoSliderCollectionViewCell.swift */,
+				FD3F17C427F6D71F009B38A6 /* PhotoSliderViewController.swift */,
 				18525B6E2731AF9F00BDDF6B /* SwipeImageCollectionViewCell.swift */,
 				18525B6C2731AC1000BDDF6B /* SwipeImageViewController.swift */,
 				189C8A5D2729D9A2001710B7 /* SlideShowPhotoCollectionViewCell.swift */,
@@ -366,6 +372,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD3F17C727F6DB81009B38A6 /* PhotoSliderCollectionViewCell.swift in Sources */,
 				183BCD292729A9D9000C3C2C /* PhotoEventCollectionViewCell.swift in Sources */,
 				181F92F8273D965200592804 /* CHTCollectionViewWaterfallLayout.swift in Sources */,
 				18525B6F2731AF9F00BDDF6B /* SwipeImageCollectionViewCell.swift in Sources */,
@@ -387,6 +394,7 @@
 				18525B6B27314CA600BDDF6B /* CustomLayout.swift in Sources */,
 				18FE81EE273BED600080C5EF /* ItemModel.swift in Sources */,
 				183BCD3B2729A9F9000C3C2C /* VideoCollectionCollectionViewCell.swift in Sources */,
+				FD3F17C527F6D71F009B38A6 /* PhotoSliderViewController.swift in Sources */,
 				18B380032729A6BD0058CE6C /* SceneDelegate.swift in Sources */,
 				18B3800B2729A6BD0058CE6C /* Photography_HOTC.xcdatamodeld in Sources */,
 				189C8A5C2729C080001710B7 /* DisplayFolderViewController.swift in Sources */,
