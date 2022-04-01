@@ -10,6 +10,7 @@ import UIKit
 
 class SlideShowPhotoCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var imageSlide: UIImageView!
+ 
+    @IBOutlet weak var slideImage: UIImageView!
     
 }

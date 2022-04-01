@@ -7,13 +7,12 @@
 //
 
 import UIKit
-
 import AVFoundation
 
 class LaunchViewController: UIViewController {
     
     var player: AVPlayer?
-    var playerLayer: AVPlayerLayer?
+    var playerLayer =  AVPlayerLayer()
     
     @IBOutlet weak var launchView: UIView!
     func setupAVPlayer() {
@@ -21,13 +20,13 @@ class LaunchViewController: UIViewController {
         let videoURL = Bundle.main.url(forResource: "HOTC", withExtension: "mov") // Get video url
         let avAssets = AVAsset(url: videoURL!)
         let avPlayer = AVPlayer(url: videoURL!)
-        let avPlayerLayer = AVPlayerLayer(player: avPlayer)
-        
-        avPlayerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        avPlayerLayer.frame = self.launchView.frame
+       playerLayer = AVPlayerLayer(player: avPlayer)
+        playerLayer.frame = self.launchView.bounds
+        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+      
         
         DispatchQueue.main.async {
-            self.launchView.layer.addSublayer(avPlayerLayer)
+            self.launchView.layer.addSublayer(self.playerLayer)
             avPlayer.play()
         }
         
@@ -43,17 +42,20 @@ class LaunchViewController: UIViewController {
         }
         
     }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        playerLayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let manager = FileManager.default
-   
+        
+        self.setupAVPlayer()
         
     }
    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.setupAVPlayer()
+//        self.setupAVPlayer()
     }
     
 }

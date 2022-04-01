@@ -23,13 +23,14 @@ class SlideShowEPhotosViewController: UIViewController {
     var scheduleTime = Timer()
     
    
-    @IBOutlet weak var imageSlideCollection: UICollectionView!
+    @IBOutlet weak var slideCollection: UICollectionView!
+    
     
     @IBOutlet weak var displayLabel: UILabel!
    
     
-    @IBAction func pauseTapped(_ sender: UIButton) {
-        
+   
+    @IBAction func pauseTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -37,8 +38,8 @@ class SlideShowEPhotosViewController: UIViewController {
         super.viewDidLoad()
        
         
-        imageSlideCollection.dataSource = self
-        imageSlideCollection.delegate = self
+        slideCollection.dataSource = self
+        slideCollection.delegate = self
         DispatchQueue.main.async {
             self.scheduleTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.slideToNextPhoto), userInfo: nil, repeats: true)
             
@@ -47,20 +48,21 @@ class SlideShowEPhotosViewController: UIViewController {
         
     }
     @objc func slideToNextPhoto() {
-        
+       
         if currentCellIndex < slidePhotos.count  {
-            self.imageSlideCollection.scrollToItem(at: IndexPath(item: currentCellIndex, section: 0), at: .centeredHorizontally, animated: true)
+            self.slideCollection.scrollToItem(at: IndexPath(item: currentCellIndex, section: 0), at: .centeredHorizontally, animated: true)
             currentCellIndex += 1
            
             
         }
+        
         else {
             currentCellIndex = 0
             let index = IndexPath.init(item: currentCellIndex, section: 0)
-            self.imageSlideCollection.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
+            self.slideCollection.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
             currentCellIndex = 1
         }
-       
+        
     }
     
     
@@ -73,8 +75,8 @@ extension SlideShowEPhotosViewController : UICollectionViewDataSource, UICollect
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "slideshow", for: indexPath) as? SlideShowPhotoCollectionViewCell
-        cell?.imageSlide.image = slidePhotos[indexPath.item]
-        cell?.imageSlide.contentMode = .scaleAspectFill
+        cell?.slideImage.image = slidePhotos[indexPath.item]
+        cell?.slideImage.contentMode = .scaleAspectFill
         return cell ?? UICollectionViewCell()
     }
     
@@ -83,7 +85,7 @@ extension SlideShowEPhotosViewController : UICollectionViewDataSource, UICollect
 
 extension SlideShowEPhotosViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = imageSlideCollection.frame.size
+        let size = view.frame.size
         return CGSize(width: size.width, height: size.height)
         
     }
