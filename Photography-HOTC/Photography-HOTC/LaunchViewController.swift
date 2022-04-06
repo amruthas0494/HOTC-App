@@ -21,12 +21,12 @@ class LaunchViewController: UIViewController {
         let avAssets = AVAsset(url: videoURL!)
         let avPlayer = AVPlayer(url: videoURL!)
        playerLayer = AVPlayerLayer(player: avPlayer)
-        playerLayer.frame = self.launchView.bounds
+        playerLayer.frame = self.view.bounds
         playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
       
         
         DispatchQueue.main.async {
-            self.launchView.layer.addSublayer(self.playerLayer)
+            self.view.layer.addSublayer(self.playerLayer)
             avPlayer.play()
         }
         

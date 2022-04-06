@@ -41,6 +41,7 @@
 		18FE81EE273BED600080C5EF /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81ED273BED600080C5EF /* ItemModel.swift */; };
 		FD3F17C527F6D71F009B38A6 /* PhotoSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F17C427F6D71F009B38A6 /* PhotoSliderViewController.swift */; };
 		FD3F17C727F6DB81009B38A6 /* PhotoSliderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F17C627F6DB81009B38A6 /* PhotoSliderCollectionViewCell.swift */; };
+		FD3F17C927FC42D4009B38A6 /* FileManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F17C827FC42D4009B38A6 /* FileManage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		18FE81ED273BED600080C5EF /* ItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
 		FD3F17C427F6D71F009B38A6 /* PhotoSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoSliderViewController.swift; path = Photos/PhotoSliderViewController.swift; sourceTree = "<group>"; };
 		FD3F17C627F6DB81009B38A6 /* PhotoSliderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoSliderCollectionViewCell.swift; path = Photos/PhotoSliderCollectionViewCell.swift; sourceTree = "<group>"; };
+		FD3F17C827FC42D4009B38A6 /* FileManage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +218,7 @@
 				18E0189E272BDE75008D8B6A /* LaunchViewController.swift */,
 				18B380112729A6CA0058CE6C /* Info.plist */,
 				18B380092729A6BD0058CE6C /* Photography_HOTC.xcdatamodeld */,
+				FD3F17C827FC42D4009B38A6 /* FileManage.swift */,
 			);
 			path = "Photography-HOTC";
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 				18525B6F2731AF9F00BDDF6B /* SwipeImageCollectionViewCell.swift in Sources */,
 				183BCD2C2729A9D9000C3C2C /* PhotoCollectionCollectionViewCell.swift in Sources */,
 				183BCD282729A9D9000C3C2C /* PhotoCollectionViewController.swift in Sources */,
+				FD3F17C927FC42D4009B38A6 /* FileManage.swift in Sources */,
 				183BCD2B2729A9D9000C3C2C /* SlideShowEPhotosViewController.swift in Sources */,
 				183BCD382729A9F9000C3C2C /* EventVideoCollectionViewCell.swift in Sources */,
 				18BD252D272A90A100ECE7AA /* PlayVideoViewController.swift in Sources */,

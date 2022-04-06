@@ -24,6 +24,9 @@ class PhotoCollectionViewController: UIViewController {
     var sangeetImages = [String]()
     var MuhuratImages = [String]()
     
+    var fileName:String?
+    var filenames : [String] = []
+    
     var HaldiImages1 = [String]()
     var MehandiImages1 = [String]()
     var ReceptionImage1 = [String]()
@@ -72,6 +75,11 @@ class PhotoCollectionViewController: UIViewController {
         self.present(viewcontroller!, animated: true, completion: nil)
     }
    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+       
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -91,24 +99,9 @@ class PhotoCollectionViewController: UIViewController {
            // self.imageVIew.clipsToBounds = true
             self.backgroundImage.contentMode = UIView.ContentMode.scaleAspectFill
           
-//           // self.imageVIew.clipsToBounds = true
-//
-//            self.getPhotsFolderNames()
-//           // self.getcollectionbackground()
-//            self.getHaldiImageFromDocumentDirectory()
-//            self.getWeddingImageFromDocumentDirectory()
-//            self.getReceptionImageFromDocumentDirectory()
-//            self.getMehandiImageFromDocumentDirectory()
-//
-//
-//
-//            self.getSangeetImageFromDocumentDirectory()
-//            self.getPREweddingImageFromDocumentDirectory()
-//            self.photoFolders.remove(at: 0)
-//
-//            self.updatedFolder.append(contentsOf: self.photoFolders)
-//
-//            print(self.updatedFolder)
+           // self.imageVIew.clipsToBounds = true
+
+          
         }
         
     }
@@ -124,16 +117,6 @@ extension PhotoCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCollection", for: indexPath) as! PhotoCollectionCollectionViewCell
-       
-        
-//         if HaldiArray.isEmpty ||  MehandiArray.isEmpty ||  MuhuratArray.isEmpty || PreweddinArray.isEmpty || ReceptionArray.isEmpty ||  SangeetArray.isEmpty {
-//            cell.photoCollection.image = UIImage(named: "Wedding.jpg")
-//        }
-       
-          
-       
-           
-        
             switch indexPath.item {
             case 0 :
               
@@ -245,4 +228,44 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
 }
 
 
+extension PhotoCollectionViewController {
+    
+    
+    
+
+    /// remove single file from document dir
+    /// - Parameter fileName: filename which you want to remove
+    func removeSingleFileFromDocumentDir(fileName: String) {
+        let documentDirectory = FileManage.documentsDirectory()
+        removeFileFromDocumentDirectory(documentDirectory: documentDirectory, path: fileName)
+    }
+
+    /// remove file from document dir
+    /// - Parameters:
+    ///   - documentDirectory: document dir path
+    ///   - path: path in string
+    fileprivate func removeFileFromDocumentDirectory(documentDirectory: URL, path: String) {
+        let fileManager = FileManager.default
+        let deletePath = documentDirectory.appendingPathComponent(path)
+        do {
+            try fileManager.removeItem(at: deletePath)
+        } catch {
+            // Non-fatal: file probably doesn't exist
+        }
+    }
+    /// remove all file from document dir
+    /// - Parameter documentDirectory: document dir url
+    fileprivate func removeFromDocumentDirectory(documentDirectory: URL)  {
+        let fileManager = FileManager.default
+        do {
+            let fileUrls = try fileManager.contentsOfDirectory(atPath: documentDirectory.path)
+            for path in fileUrls {
+                removeFileFromDocumentDirectory(documentDirectory: documentDirectory, path: path)
+            }
+        } catch {
+            print("Error while enumerating files \(documentDirectory.path): \(error.localizedDescription)")
+        }
+    }
+}
+    
 
