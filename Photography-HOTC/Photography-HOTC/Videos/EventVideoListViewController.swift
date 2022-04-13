@@ -56,14 +56,13 @@ class EventVideoListViewController: UIViewController {
     @IBOutlet weak var displayBackground: UIImageView!
     
     @IBAction func videolistBackButton(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func videoHomeButtonTapped(_ sender: UIButton) {
-        let viewcontroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "HomeScreen") as?  DisplayFolderViewController
-        
-        self.present(viewcontroller!, animated: true, completion: nil)
-        
+        let vc = DisplayFolderViewController.instantiate(fromStoryboard: .Main)
+       
+        self.navigationController?.pushViewController(vc, animated: true)
         
         
     }
@@ -138,26 +137,12 @@ extension EventVideoListViewController : UICollectionViewDataSource, UICollectio
         let mpVolume = MPVolumeView(frame: mpVolumeHolderView.bounds)
         mpVolume.showsRouteButton = true
         
-        // myView.addSubview(mpVolumeHolderView)
-        // the volume view is white, set the parent background to black to show it better in this example
-        // mpVolumeHolderView.backgroundColor = .black
-        
-        // playercontroller.contentOverlayView?.addSubview(mpVolumeHolderView)
+     
         mpVolumeHolderView.addSubview(mpVolume)
         mpVolumeHolderView.bringSubviewToFront(mpVolume)
         
-        // player.volume = 1.0
-        //        player.fadeVolume(from: 1.0, to: 0, duration: ) {
-        //            self.player.volume = self.mySlider!.value
-        //        }
-        //  fadeTimer = player.fadeVolume(from: 0, to: 1, duration: 5)
-        
         self.playercontroller.showsPlaybackControls = true
-        //self.playercontroller.player?.volume = UISlid
         
-        // playSound(audioURL: URL(fileURLWithPath: sharedVideos[indexPath.item]), setVolume: true, level:1.0 )
-        // NotificationCenter.default.addObserver(self, selector: #selector(sliderValueDidChange(_:)),name: NSNotification.Name.init(rawValue: <#T##String#>), object: playercontroller.player?.currentItem)
-        //  player = MPVolumeView()
         
         mySlider!.addTarget(playercontroller.self, action: #selector(sliderValueDidChange(_:)), for: .allEvents)
         //  self.playercontroller.player?.volume = mySlider?.value
@@ -171,11 +156,6 @@ extension EventVideoListViewController : UICollectionViewDataSource, UICollectio
         
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying(note:)),name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playercontroller.player?.currentItem)
     
-        //              let viewcontroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "toPlayVC") as?  PlayVideoViewController
-        //        viewcontroller?.playVideoNow = sharedVideos[indexPath.row]
-        //                 self.present(viewcontroller!, animated: true, completion: nil)
-        
-        
         
     }
     @objc func playerDidFinishPlaying(note: NSNotification) {

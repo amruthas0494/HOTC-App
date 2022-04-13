@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 
 class LaunchViewController: UIViewController {
+    var window: UIWindow?
     
     var player: AVPlayer?
     var playerLayer =  AVPlayerLayer()
@@ -35,9 +36,15 @@ class LaunchViewController: UIViewController {
         avPlayer.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 1) , queue: .main) { [weak self] time in
             
             if time == avAssets.duration {
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeScreen") as! DisplayFolderViewController
-                self?.present(vc, animated: true, completion: nil)
+//                let navController: UINavigationController!
+//                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeScreen") as! DisplayFolderViewController
+//               // navController = UINavigationController(rootViewController: vc)
+//               // navController.isNavigationBarHidden = true
+//                self?.present(vc, animated: true, completion: nil)
+//
                 //self?.navigationController?.pushViewController(vc, animated: true)
+                let vc = DisplayFolderViewController.instantiate(fromStoryboard: .Main)
+                self?.navigationController?.pushViewController(vc, animated: true)
             }
         }
         
@@ -50,7 +57,7 @@ class LaunchViewController: UIViewController {
         super.viewDidLoad()
         
         self.setupAVPlayer()
-        
+       
     }
    
     override func viewWillAppear(_ animated: Bool) {

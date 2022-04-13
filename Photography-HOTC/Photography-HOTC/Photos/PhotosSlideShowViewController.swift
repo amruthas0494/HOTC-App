@@ -1,70 +1,64 @@
 //
-//  PhotoSliderViewController.swift
+//  PhotosSlideShowViewController.swift
 //  Photography-HOTC
 //
-//  Created by Cognitiveclouds on 01/04/22.
+//  Created by Cognitiveclouds on 13/04/22.
 //  Copyright © 2022 apple. All rights reserved.
 //
 
 import UIKit
 
-class PhotoSliderViewController: UIViewController {
-    
+class PhotosSlideShowViewController: UIViewController {
+
     var counter = 0
     var slideImages = [URL]()
+    var Images = [UIImage]()
     var timer: Timer?
     let sectionInsets = UIEdgeInsets(
         top: 2.0,
         left: 2.0,
         bottom: 2.0,
         right:2.0)
-  
-    
-    @IBOutlet weak var slideCollection: UICollectionView!
+    @IBOutlet weak var slideShowCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        slideCollection.dataSource = self
-        slideCollection.delegate = self
+
+        slideShowCollectionView.dataSource = self
+        slideShowCollectionView.delegate = self
         DispatchQueue.main.async {
             self.timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
         }
         
     }
     @objc func changeImage() {
-      //  print(slideImages)
+        
         if counter < slideImages.count {
             let index = IndexPath.init(item: counter, section: 0)
-            self.slideCollection.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+            self.slideShowCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
             //         pageView.currentPage = counter
             counter += 1
-            //slideCollection.reloadData()
         } else {
             counter = 0
             let index = IndexPath.init(item: counter, section: 0)
-            self.slideCollection.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
+            self.slideShowCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
             //pageView.currentPage = counter
             counter = 1
         }
         
     }
     
-    
-    
-    @IBAction func pauseTapped(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-        
+    @IBAction func PauseButtonTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
-    
-    
 }
-extension PhotoSliderViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+extension PhotosSlideShowViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return slideImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SlideImage", for: indexPath) as? PhotoSliderCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SlideImage", for: indexPath) as? PhotosSLideShowCollectionViewCell
         let eventImage = slideImages[indexPath.item]
         
         // print(eventImage)
@@ -75,6 +69,7 @@ extension PhotoSliderViewController : UICollectionViewDataSource, UICollectionVi
          let imageAdded = UIImage(data: imageData)
          cell?.slideImage.image = imageAdded
          //swipImages.append(imageAdded!)
+         Images.append(imageAdded!)
      }
         
         cell?.slideImage.contentMode = .scaleAspectFill
@@ -85,14 +80,14 @@ extension PhotoSliderViewController : UICollectionViewDataSource, UICollectionVi
     
     
 }
-extension PhotoSliderViewController : UICollectionViewDelegateFlowLayout {
+extension PhotosSlideShowViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = view.frame.size
+        let size = slideShowCollectionView.frame.size
         return CGSize(width: size.width, height: size.height)
     }
     

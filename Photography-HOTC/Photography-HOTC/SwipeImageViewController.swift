@@ -17,27 +17,26 @@ class SwipeImageViewController: UIViewController {
     @IBOutlet weak var labelName: UILabel!
     
     var headerLabel: String = ""
-    var images: [UIImage] = []
-    var selectedImage : UIImage?
+    var images: [URL] = []
+    var selectedImage : Int = 0
     @IBAction func eventphotBackTapped(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     
     @IBAction func homeButtonTapped(_ sender: UIButton) {
-        let viewcontroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "HomeScreen") as?  DisplayFolderViewController
-        
-        self.present(viewcontroller!, animated: true, completion: nil)
+        let vc = DisplayFolderViewController.instantiate(fromStoryboard: .Main)
+       
+        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
     
     @IBAction func playTapped(_ sender: UIButton) {
-        let viewcontroller1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "toPhotoSlide") as?  PhotoSliderViewController
+        let vc = PhotosSlideShowViewController.instantiate(fromStoryboard: .Main)
+        vc.slideImages = images
+        self.navigationController?.pushViewController(vc, animated: true)
         
-         // viewcontroller1?.slidedImage = selectedImage
-        viewcontroller1?.slideImages = images
-        self.present(viewcontroller1!, animated: true, completion: nil)
         
     }
     
@@ -45,8 +44,18 @@ class SwipeImageViewController: UIViewController {
         super.viewDidLoad()
         labelName.text = headerLabel
         
+        
+        
+        
+        
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        swipeCollection.dataSource = self
+        swipeCollection.delegate = self
+        let index = IndexPath.init(item: selectedImage, section: 0)
+        self.swipeCollection.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+        swipeCollection.reloadData()
+    }
     
     
     
@@ -59,15 +68,22 @@ extension SwipeImageViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "swipeImage", for: indexPath) as? SwipeImageCollectionViewCell
-        if indexPath.row == 0 {
-            cell?.swipeImage.image = selectedImage
+        let eventImage = images[indexPath.item]
+        
+        // print(eventImage)
+         
+        let data = try? Data(contentsOf: eventImage)
+
+     if let imageData = data {
+         let imageAdded = UIImage(data: imageData)
+         cell?.swipeImage.image = imageAdded
+        
+     }
+       
             
-        }
-        else {
-        cell?.swipeImage.image = images[indexPath.row]
         cell?.swipeImage.contentMode = .scaleAspectFill
         
-    }
+   // }
         return cell!
         
     }

@@ -28,10 +28,11 @@ class PhotoEventDisplayViewController: UIViewController {
         bottom: 5.0,
         right: 2.0)
     var items = [ItemModel]()
-    var viewImages: [UIImage] = []
+    var viewImages: [URL] = []
     var labelName: String = ""
     var displayLabelName = ""
     var selectedimage : UIImage?
+    var swipImages: [UIImage] = []
     
     
    
@@ -44,25 +45,20 @@ class PhotoEventDisplayViewController: UIViewController {
     
     @IBAction func eventkButtonTapped(_ sender: UIButton) {
         
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     
     @IBAction func homeTapped(_ sender: UIButton) {
-        
-        let viewcontroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "HomeScreen") as?  DisplayFolderViewController
-        
-        self.present(viewcontroller!, animated: true, completion: nil)
+        let vc = DisplayFolderViewController.instantiate(fromStoryboard: .Main)
+       
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        for img in viewImages {
-//            models = [Model(image: img)]
-//        }
-//
-        self.nameOutlet.text = labelName
+      // print(viewImages)
+      self.nameOutlet.text = labelName
         eventCollection.dataSource = self
         eventCollection.delegate = self
         
@@ -114,8 +110,20 @@ extension PhotoEventDisplayViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photEvent", for: indexPath) as! PhotoEventCollectionViewCell
-        cell.eventPhotos.image = viewImages[indexPath.item]
-  
+       // cell.eventPhotos.image = swipImages[indexPath.item]
+      
+
+        let eventImage = viewImages[indexPath.item]
+        
+        // print(eventImage)
+         
+        let data = try? Data(contentsOf: eventImage)
+
+     if let imageData = data {
+         let imageAdded = UIImage(data: imageData)
+         cell.eventPhotos.image = imageAdded
+         //swipImages.append(imageAdded!)
+     }
         return cell
     }
     
@@ -123,21 +131,14 @@ extension PhotoEventDisplayViewController : UICollectionViewDataSource {
 extension PhotoEventDisplayViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = SwipeImageViewController.instantiate(fromStoryboard: .Main)
+        //vc.BackgroundImage = self.backgroundImage
+        vc.headerLabel = labelName
+        vc.selectedImage = indexPath.item
+        vc.images = viewImages
+        self.navigationController?.pushViewController(vc, animated: true)
 
-        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-        let selectedItem = self.viewImages[indexPath.row]
-       // guard let indexPath = (sender as? UIView)?.findCollectionViewIndexPath() else { return }
-             // guard let detailViewController = segue.destination as? DetailViewController else { return }
-       
-             
-        let viewcontroller1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "toSwipe") as?  SwipeImageViewController
-        
-        
-        viewcontroller1?.headerLabel = labelName
-        viewcontroller1?.selectedImage = selectedItem
-        viewcontroller1?.images = viewImages
-        
-        self.present(viewcontroller1!, animated: true, completion: nil)
+     
     }
     
 }
@@ -157,7 +158,7 @@ extension PhotoEventDisplayViewController: CHTCollectionViewDelegateWaterfallLay
 //connecting with vc to implement layout delegate
 extension PhotoEventDisplayViewController : CustomLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-        return  viewImages[indexPath.item].size.height
+        return  swipImages[indexPath.item].size.height
     }
 
     

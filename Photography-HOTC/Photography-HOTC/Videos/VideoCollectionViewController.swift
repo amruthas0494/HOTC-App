@@ -15,6 +15,7 @@ class VideoCollectionViewController: UIViewController {
     
     @IBOutlet weak var displayFolderName: UILabel!
     @IBOutlet weak var imageView: UIImageView!
+    var eventvideos = [Video]()
     var backgroundImage: String = ""
     var updatedbackground = ""
     var videoImage = ""
@@ -25,6 +26,8 @@ class VideoCollectionViewController: UIViewController {
     
     var fileName:String?
     var filenames : [String] = []
+    var backgroundFolder = [Background]()
+    var backgroundImages: [UIImage] = []
     
     var haldiVideos: [String] = []
     var muhuratVideos: [String] = []
@@ -79,21 +82,31 @@ class VideoCollectionViewController: UIViewController {
     
     
     @IBAction func videoBackTapped(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     
     @IBAction func homeTapped(_ sender: UIButton) {
-        let viewcontroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "HomeScreen") as?  DisplayFolderViewController
-        
-        self.present(viewcontroller!, animated: true, completion: nil)
-        
+        let vc = DisplayFolderViewController.instantiate(fromStoryboard: .Main)
+       
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(eventvideos)
+        let background = backgroundFolder[0].images
         
+    
+        for image in background {
+            if let data = try? Data(contentsOf: image)
+            {
+                let image: UIImage = UIImage(data: data)!
+                self.backgroundImages.append(image)
+                
+            }
+        }
         getVideosFolderNames()
         getcollectionbackground()
         getHaldiVideos()
@@ -116,7 +129,7 @@ class VideoCollectionViewController: UIViewController {
         videoFolders.uniqued()
         haldiNewThumbnail.uniqued()
           print(videoFolders)
-        
+
         getMehandiThumbnails()
         getHaldiThumbnails()
         getPreweddingThumbnails()
@@ -155,57 +168,63 @@ extension VideoCollectionViewController: UICollectionViewDataSource {
         eventname =  videoFolders[indexPath.item]
         // print(eventname)
         return cell
-        
     }
 }
 
 extension VideoCollectionViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        
+
+       
         switch indexPath.item {
         case 0:
-            let viewcontroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "toVideoList") as?  EventVideoListViewController
-            viewcontroller?.displayImage = backgroundImage
-            viewcontroller?.allThumbnails = haldiNewThumbnail
-            viewcontroller?.sharedVideos = uniquehaldiFolder
-            viewcontroller?.labelName = videoFolders[0]
-            self.present(viewcontroller!, animated: true, completion: nil)
+            let vc = EventVideoListViewController.instantiate(fromStoryboard: .Main)
+            vc.displayImage = backgroundImage
+            vc.allThumbnails = haldiNewThumbnail
+            vc.sharedVideos = uniquehaldiFolder
+            vc.labelName = videoFolders[0]
+            self.navigationController?.pushViewController(vc, animated: true)
+            
         case 1:
-            let viewcontroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "toVideoList") as?  EventVideoListViewController
-            viewcontroller?.displayImage = backgroundImage
-            viewcontroller?.allThumbnails = mehandiNewThumbnail
-            viewcontroller?.sharedVideos = uniquemehandiFolder.sorted()
-            viewcontroller?.labelName = videoFolders[1]
-            self.present(viewcontroller!, animated: true, completion: nil)
+            let vc = EventVideoListViewController.instantiate(fromStoryboard: .Main)
+            vc.displayImage = backgroundImage
+            vc.allThumbnails = mehandiNewThumbnail
+            vc.sharedVideos = uniquemehandiFolder.sorted()
+            vc.labelName = videoFolders[1]
+            self.navigationController?.pushViewController(vc, animated: true)
+           
         case 2:
-            let viewcontroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "toVideoList") as?  EventVideoListViewController
-            viewcontroller?.displayImage = backgroundImage
-            viewcontroller?.allThumbnails = MuhuratNewThumbnail
-            viewcontroller?.sharedVideos = uniquemuhuratFolder.sorted()
-            viewcontroller?.labelName = videoFolders[2]
-            self.present(viewcontroller!, animated: true, completion: nil)
+            let vc = EventVideoListViewController.instantiate(fromStoryboard: .Main)
+            vc.displayImage = backgroundImage
+            vc.allThumbnails = MuhuratNewThumbnail
+            vc.sharedVideos = uniquemuhuratFolder.sorted()
+            vc.labelName = videoFolders[2]
+            self.navigationController?.pushViewController(vc, animated: true)
+         
+          
         case 3:
-            let viewcontroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "toVideoList") as?  EventVideoListViewController
-            viewcontroller?.displayImage = backgroundImage
-            viewcontroller?.allThumbnails = preweddingNewThumbnail
-            viewcontroller?.sharedVideos = uniquepreweddingFolder
-            viewcontroller?.labelName = videoFolders[3]
-            self.present(viewcontroller!, animated: true, completion: nil)
+            let vc = EventVideoListViewController.instantiate(fromStoryboard: .Main)
+            vc.displayImage = backgroundImage
+            vc.allThumbnails = preweddingNewThumbnail
+            vc.sharedVideos = uniquepreweddingFolder.sorted()
+            vc.labelName = videoFolders[3]
+            self.navigationController?.pushViewController(vc, animated: true)
+            
         case 4:
-            let viewcontroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "toVideoList") as?  EventVideoListViewController
-            viewcontroller?.displayImage = backgroundImage
-            viewcontroller?.allThumbnails = receptionNewThumbail
-            viewcontroller?.sharedVideos = uniquereceptionFolder
-            viewcontroller?.labelName = videoFolders[4]
-            self.present(viewcontroller!, animated: true, completion: nil)
+            let vc = EventVideoListViewController.instantiate(fromStoryboard: .Main)
+            vc.displayImage = backgroundImage
+            vc.allThumbnails = receptionNewThumbail
+            vc.sharedVideos = uniquereceptionFolder.sorted()
+            vc.labelName = videoFolders[4]
+            self.navigationController?.pushViewController(vc, animated: true)
+          
         case 5:
-            let viewcontroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "toVideoList") as?  EventVideoListViewController
-            viewcontroller?.displayImage = backgroundImage
-            viewcontroller?.allThumbnails = sangeetNewThumbnail
-            viewcontroller?.sharedVideos = uniquesangeetFolder
-            viewcontroller?.labelName =  videoFolders[5]
-            self.present(viewcontroller!, animated: true, completion: nil)
+            let vc = EventVideoListViewController.instantiate(fromStoryboard: .Main)
+            vc.displayImage = backgroundImage
+            vc.allThumbnails = sangeetNewThumbnail
+            vc.sharedVideos = uniquesangeetFolder.sorted()
+            vc.labelName = videoFolders[2]
+            self.navigationController?.pushViewController(vc, animated: true)
+            
         default:
             print("others")
         }
