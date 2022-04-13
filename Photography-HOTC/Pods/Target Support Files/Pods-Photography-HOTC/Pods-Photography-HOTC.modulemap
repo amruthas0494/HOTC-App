@@ -1,0 +1,6 @@
+framework module Pods_Photography_HOTC {
+  umbrella header "Pods-Photography-HOTC-umbrella.h"
+
+  export *
+  module * { export * }
+}
