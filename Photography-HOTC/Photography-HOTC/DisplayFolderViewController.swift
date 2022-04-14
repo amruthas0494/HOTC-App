@@ -68,7 +68,7 @@ class DisplayFolderViewController: UIViewController{
     let delayInSeconds = 0.0
     
     var url :URL?
-    
+    var backgroundPhoto :URL?
    
     
     @IBAction func photoTapped(_ sender: Any) {
@@ -111,7 +111,14 @@ class DisplayFolderViewController: UIViewController{
         super.viewDidLoad()
         
         listFolders()
-      
+        for image in standardImg {
+            if let data = try? Data(contentsOf: image)
+            {
+                let image: UIImage = UIImage(data: data)!
+                self.imageVIew.image = image
+                
+            }
+        }
         
         self.photoFolder.layer.borderWidth = 3
         self.photoFolder.layer.borderColor = UIColor.white.cgColor
@@ -169,79 +176,91 @@ class DisplayFolderViewController: UIViewController{
             if eventDirectory.isHavingFiles {
             print("true")
             getFolderNames()
+                let backgroundDir = media.filter { $0.directoryName == "BACKGROUND" ||  $0.directoryName == "Background"  }.first!
+               
+               // let backgroundDir = media.filter { $0.directoryName == filenames[0] }.first!
+                //var background = getSubDirectories(of: backgroundDir)
+                if backgroundDir.isHavingFiles {
+                getBackgroundImage()
+//                    let backImage = getAllFiles(of: backgroundDir)
+//                    for image in backImage{
+//                    self.standardImg.append(image)
+//                    print(standardImg)
+//                    }
+                }
+                
+                else {
+                    self.imageVIew.image = UIImage(named: "Background")
+                }
+                let photosDir = media.filter { $0.directoryName == "PHOTOS" ||  $0.directoryName == "Photos" }.first!
+                if photosDir.isHavingFiles {
+                    print("true")
+                    let photoTypeDir = getSubDirectories(of: photosDir)
+                    for url in photoTypeDir {
+                        let photoItem = Photo(title: url.directoryName.uppercased(), thumbnail:getAllFiles(of: url).first, images: getAllFiles(of: url))
+                       // print(photoItem)
+                        photos.append(photoItem)
+                        //standardImg.append(contentsOf: photoItem.images)
+                    }
+                   // self.getPhotsFolderNames()
+                    
+                }
+                else {
+                    DispatchQueue.main.async {
+                        self.photoFolder.isHidden = true
+                    }
+                }
+               
+
+                let videoDir = media.filter { $0.directoryName == "VIDEOS"  ||  $0.directoryName == "Videos" }.first!
+                if videoDir.isHavingFiles {
+                    print("true")
+                    var videoTypesDir = getSubDirectories(of: videoDir)
+                    let background = videoTypesDir.filter { $0.directoryName == "BACKGROUND"  ||  $0.directoryName == "Background" }.first!
+                    if background.isHavingFiles {
+                    //print(background)
+                    let backgroundItem = Background(images: getAllFiles(of: background))
+                    print(backgroundItem)
+                        backgroundFolder.append(backgroundItem)
+                    }
+                    else {
+                        print("no images")
+                    }
+                    videoTypesDir.removeFirst()
+                    print(videoTypesDir)
+                   
+                    for videoUrl in videoTypesDir {
+                        let videosFiles = videoUrl.allFiles
+                        let thumbNail = videosFiles.filter { $0.directoryName == "Thumbnails" }.first!
+                       // print(thumbNail)
+                        if thumbNail.isHavingFiles {
+                            let thumbnailFiles = VideoThumbnails(thumbnails: getAllFiles(of: thumbNail))
+                            print(thumbnailFiles)
+                            videothumbnail.append(thumbnailFiles)
+    //
+                            
+                           
+                        }
+                        
+                        for  video in videosFiles {
+                            
+                            print("video", video)
+                            
+                        let playlistItem = PlayList(videoURL: video)
+                            
+                        }
+            }
+                }
+                else {
+                    DispatchQueue.main.async {
+                        self.videoFolder.isHidden = true
+                    }
+                }
             }
             else {
                 self.setLabel.text = "Bride & Bridegroom"
             }
-            let backgroundDir = media.filter { $0.directoryName == "BACKGROUND" ||  $0.directoryName == "Background"  }.first!
-           
-           // let backgroundDir = media.filter { $0.directoryName == filenames[0] }.first!
-            var background = getSubDirectories(of: backgroundDir)
-            if backgroundDir.isHavingFiles {
-            getBackgroundImage()
-                
-                }
             
-            else {
-                self.imageVIew.image = UIImage(named: "Background")
-            }
-            let photosDir = media.filter { $0.directoryName == "PHOTOS" ||  $0.directoryName == "Photos" }.first!
-            if photosDir.isHavingFiles {
-                print("true")
-                let photoTypeDir = getSubDirectories(of: photosDir)
-                for url in photoTypeDir {
-                    let photoItem = Photo(title: url.directoryName.uppercased(), thumbnail:getAllFiles(of: url).first, images: getAllFiles(of: url))
-                   // print(photoItem)
-                    photos.append(photoItem)
-                    standardImg.append(contentsOf: photoItem.images)
-                }
-               // self.getPhotsFolderNames()
-                
-            }
-            else {
-                DispatchQueue.main.async {
-                    self.photoFolder.isHidden = true
-                }
-            }
-           
-
-            let videoDir = media.filter { $0.directoryName == "VIDEOS"  ||  $0.directoryName == "Videos" }.first!
-            if videoDir.isHavingFiles {
-                print("true")
-                var videoTypesDir = getSubDirectories(of: videoDir)
-                let background = videoTypesDir.filter { $0.directoryName == "BACKGROUND"  ||  $0.directoryName == "Background" }.first!
-                if background.isHavingFiles {
-                //print(background)
-                let backgroundItem = Background(images: getAllFiles(of: background))
-                print(backgroundItem)
-                    backgroundFolder.append(backgroundItem)
-                }
-                else {
-                    print("no images")
-                }
-                videoTypesDir.removeFirst()
-                print(videoTypesDir)
-               
-                for videoUrl in videoTypesDir {
-                    let videosFiles = videoUrl.allFiles
-                    let thumbNail = videosFiles.filter { $0.directoryName == "Thumbnails" }.first!
-                   // print(thumbNail)
-                    if thumbNail.isHavingFiles {
-                        let thumbnailFiles = VideoThumbnails(thumbnails: getAllFiles(of: thumbNail))
-                        print(thumbnailFiles)
-                        videothumbnail.append(thumbnailFiles)
-//
-                        
-                       
-                    }
-                    
-                    for  video in videosFiles {
-                        
-                        print("video", video)
-                        
-                    let playlistItem = PlayList(videoURL: video)
-                        
-                    }
                     
                    
 //                    let videoItem = vide
@@ -253,18 +272,7 @@ class DisplayFolderViewController: UIViewController{
 //
                 
             }
-            else {
-                DispatchQueue.main.async {
-                    self.videoFolder.isHidden = true
-                }
-            }
-           
       
-            //print(photosDir.isHavingFiles)
-    
-        }
-        
-    }
         else {
             self.setLabel.text = "Bride & Bridegroom"
              self.photoFolder.isHidden = true
