@@ -132,12 +132,9 @@ extension PhotoCollectionViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("You selected cell #\(indexPath.row)!")
 
-       // let indexPath = collectionView.indexPathsForSelectedItems //optional, to get from any UIButton for example
-
         let currentCell = collectionView.cellForItem(at: indexPath)! as! PhotoCollectionCollectionViewCell
         eventname = currentCell.photoLabel.text!
         let vc = PhotoEventDisplayViewController.instantiate(fromStoryboard: .Main)
-        //vc.BackgroundImage = self.backgroundImage
         vc.labelName = eventname
         vc.viewImages = eventphotos[indexPath.item].images
         self.navigationController?.pushViewController(vc, animated: true)

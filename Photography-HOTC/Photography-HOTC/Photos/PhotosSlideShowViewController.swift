@@ -13,39 +13,40 @@ class PhotosSlideShowViewController: UIViewController {
     var counter = 0
     var slideImages = [URL]()
     var Images = [UIImage]()
-    var timer: Timer?
+    var scheduleTime = Timer()
     let sectionInsets = UIEdgeInsets(
         top: 2.0,
         left: 2.0,
         bottom: 2.0,
         right:2.0)
+   
+  
     @IBOutlet weak var slideShowCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+//print(Images)
         slideShowCollectionView.dataSource = self
         slideShowCollectionView.delegate = self
-        DispatchQueue.main.async {
-            self.timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
-        }
+        self.scheduleTime = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.slideToNextPhoto), userInfo: nil, repeats: true)
+        
         
     }
-    @objc func changeImage() {
+   
+    @objc func slideToNextPhoto() {
         
-        if counter < slideImages.count {
-            let index = IndexPath.init(item: counter, section: 0)
-            self.slideShowCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
-            //         pageView.currentPage = counter
+        if counter < Images.count  {
+            self.slideShowCollectionView.scrollToItem(at: IndexPath(item: counter, section: 0), at: .centeredHorizontally, animated: true)
             counter += 1
-        } else {
+           
+            
+        }
+        else {
             counter = 0
             let index = IndexPath.init(item: counter, section: 0)
             self.slideShowCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
-            //pageView.currentPage = counter
-            counter = 1
         }
-        
+       
     }
     
     @IBAction func PauseButtonTapped(_ sender: Any) {
@@ -54,25 +55,15 @@ class PhotosSlideShowViewController: UIViewController {
 }
 extension PhotosSlideShowViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return slideImages.count
+        return Images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SlideImage", for: indexPath) as? PhotosSLideShowCollectionViewCell
-        let eventImage = slideImages[indexPath.item]
-        
-        // print(eventImage)
-         
-        let data = try? Data(contentsOf: eventImage)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "slideImage", for: indexPath) as? PhotosSlideCollectionViewCell
 
-     if let imageData = data {
-         let imageAdded = UIImage(data: imageData)
-         cell?.slideImage.image = imageAdded
-         //swipImages.append(imageAdded!)
-         Images.append(imageAdded!)
-     }
-        
-        cell?.slideImage.contentMode = .scaleAspectFill
+
+        cell?.slideImageView.image = Images[indexPath.item]
+        cell?.slideImageView.contentMode = .scaleAspectFill
         
         
         return cell!

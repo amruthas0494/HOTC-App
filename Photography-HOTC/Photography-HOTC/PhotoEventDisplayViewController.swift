@@ -110,19 +110,19 @@ extension PhotoEventDisplayViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photEvent", for: indexPath) as! PhotoEventCollectionViewCell
-       // cell.eventPhotos.image = swipImages[indexPath.item]
+    
       
 
         let eventImage = viewImages[indexPath.item]
         
-        // print(eventImage)
+   
          
         let data = try? Data(contentsOf: eventImage)
 
      if let imageData = data {
          let imageAdded = UIImage(data: imageData)
          cell.eventPhotos.image = imageAdded
-         //swipImages.append(imageAdded!)
+         swipImages.append(imageAdded!)
      }
         return cell
     }
@@ -132,10 +132,10 @@ extension PhotoEventDisplayViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = SwipeImageViewController.instantiate(fromStoryboard: .Main)
-        //vc.BackgroundImage = self.backgroundImage
+     
         vc.headerLabel = labelName
         vc.selectedImage = indexPath.item
-        vc.images = viewImages
+        vc.imagesTOBeSlided = swipImages
         self.navigationController?.pushViewController(vc, animated: true)
 
      
