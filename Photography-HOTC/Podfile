@@ -6,8 +6,8 @@ target 'Photography-HOTC' do
   use_frameworks!
 
   # Pods for Photography-HOTC
+ 
  pod 'ImageSlideshow', '~> 1.9.0'
-
 
 
 

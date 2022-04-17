@@ -13,7 +13,6 @@
 		183BCD282729A9D9000C3C2C /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183BCD232729A9D9000C3C2C /* PhotoCollectionViewController.swift */; };
 		183BCD292729A9D9000C3C2C /* PhotoEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183BCD242729A9D9000C3C2C /* PhotoEventCollectionViewCell.swift */; };
 		183BCD2A2729A9D9000C3C2C /* PhotoEventDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183BCD252729A9D9000C3C2C /* PhotoEventDisplayViewController.swift */; };
-		183BCD2B2729A9D9000C3C2C /* SlideShowEPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183BCD262729A9D9000C3C2C /* SlideShowEPhotosViewController.swift */; };
 		183BCD2C2729A9D9000C3C2C /* PhotoCollectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183BCD272729A9D9000C3C2C /* PhotoCollectionCollectionViewCell.swift */; };
 		183BCD372729A9F9000C3C2C /* PlayVideoClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183BCD302729A9F9000C3C2C /* PlayVideoClass.swift */; };
 		183BCD382729A9F9000C3C2C /* EventVideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183BCD312729A9F9000C3C2C /* EventVideoCollectionViewCell.swift */; };
@@ -25,7 +24,6 @@
 		18525B6D2731AC1000BDDF6B /* SwipeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18525B6C2731AC1000BDDF6B /* SwipeImageViewController.swift */; };
 		18525B6F2731AF9F00BDDF6B /* SwipeImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18525B6E2731AF9F00BDDF6B /* SwipeImageCollectionViewCell.swift */; };
 		189C8A5C2729C080001710B7 /* DisplayFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189C8A5B2729C080001710B7 /* DisplayFolderViewController.swift */; };
-		189C8A5E2729D9A2001710B7 /* SlideShowPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189C8A5D2729D9A2001710B7 /* SlideShowPhotoCollectionViewCell.swift */; };
 		18B380012729A6BD0058CE6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B380002729A6BD0058CE6C /* AppDelegate.swift */; };
 		18B380032729A6BD0058CE6C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B380022729A6BD0058CE6C /* SceneDelegate.swift */; };
 		18B380052729A6BD0058CE6C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B380042729A6BD0058CE6C /* ViewController.swift */; };
@@ -42,13 +40,11 @@
 		7F594523C61633F8E69D7CD8 /* Pods_Photography_HOTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6AB49237C8021E994CB362C /* Pods_Photography_HOTC.framework */; };
 		895EEFFCD17923412CEE7895 /* Pods_Photography_HOTC_Photography_HOTCUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083300A63F6A2BFB4EAC124B /* Pods_Photography_HOTC_Photography_HOTCUITests.framework */; };
 		CD62E34504A26A85E4865367 /* Pods_Photography_HOTCTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73973F6719856DC7C141971F /* Pods_Photography_HOTCTests.framework */; };
-		FD3F17C527F6D71F009B38A6 /* PhotoSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F17C427F6D71F009B38A6 /* PhotoSliderViewController.swift */; };
-		FD3F17C727F6DB81009B38A6 /* PhotoSliderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F17C627F6DB81009B38A6 /* PhotoSliderCollectionViewCell.swift */; };
 		FD3F17C927FC42D4009B38A6 /* FileManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F17C827FC42D4009B38A6 /* FileManage.swift */; };
 		FD3F17FD2804263A009B38A6 /* ImagePreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F17FC2804263A009B38A6 /* ImagePreviewVC.swift */; };
 		FD3F180028055CFB009B38A6 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F17FF28055CFA009B38A6 /* UIViewControllerExtension.swift */; };
-		FD3F180C2806A89D009B38A6 /* PhotosSLideShowCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F180B2806A89D009B38A6 /* PhotosSLideShowCollectionViewCell.swift */; };
 		FD3F180E2806A9D0009B38A6 /* PhotosSlideShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F180D2806A9D0009B38A6 /* PhotosSlideShowViewController.swift */; };
+		FD3F184728092374009B38A6 /* PhotosSlideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F184628092374009B38A6 /* PhotosSlideCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,7 +73,6 @@
 		183BCD232729A9D9000C3C2C /* PhotoCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewController.swift; sourceTree = "<group>"; };
 		183BCD242729A9D9000C3C2C /* PhotoEventCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		183BCD252729A9D9000C3C2C /* PhotoEventDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEventDisplayViewController.swift; sourceTree = "<group>"; };
-		183BCD262729A9D9000C3C2C /* SlideShowEPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideShowEPhotosViewController.swift; sourceTree = "<group>"; };
 		183BCD272729A9D9000C3C2C /* PhotoCollectionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionCollectionViewCell.swift; sourceTree = "<group>"; };
 		183BCD302729A9F9000C3C2C /* PlayVideoClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayVideoClass.swift; sourceTree = "<group>"; };
 		183BCD312729A9F9000C3C2C /* EventVideoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventVideoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -89,7 +84,6 @@
 		18525B6C2731AC1000BDDF6B /* SwipeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwipeImageViewController.swift; path = "Photography-HOTC/SwipeImageViewController.swift"; sourceTree = SOURCE_ROOT; };
 		18525B6E2731AF9F00BDDF6B /* SwipeImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		189C8A5B2729C080001710B7 /* DisplayFolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayFolderViewController.swift; sourceTree = "<group>"; };
-		189C8A5D2729D9A2001710B7 /* SlideShowPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideShowPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		18B37FFD2729A6BD0058CE6C /* Photography-HOTC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Photography-HOTC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18B380002729A6BD0058CE6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18B380022729A6BD0058CE6C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -116,13 +110,11 @@
 		C6AB49237C8021E994CB362C /* Pods_Photography_HOTC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Photography_HOTC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFD24992AC5370DFA182CB5C /* Pods-Photography-HOTC-Photography-HOTCUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Photography-HOTC-Photography-HOTCUITests.release.xcconfig"; path = "Target Support Files/Pods-Photography-HOTC-Photography-HOTCUITests/Pods-Photography-HOTC-Photography-HOTCUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DA929ECBC069961B0BC2FEA8 /* Pods-Photography-HOTC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Photography-HOTC.debug.xcconfig"; path = "Target Support Files/Pods-Photography-HOTC/Pods-Photography-HOTC.debug.xcconfig"; sourceTree = "<group>"; };
-		FD3F17C427F6D71F009B38A6 /* PhotoSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoSliderViewController.swift; path = Photos/PhotoSliderViewController.swift; sourceTree = "<group>"; };
-		FD3F17C627F6DB81009B38A6 /* PhotoSliderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoSliderCollectionViewCell.swift; path = Photos/PhotoSliderCollectionViewCell.swift; sourceTree = "<group>"; };
 		FD3F17C827FC42D4009B38A6 /* FileManage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManage.swift; sourceTree = "<group>"; };
 		FD3F17FC2804263A009B38A6 /* ImagePreviewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePreviewVC.swift; sourceTree = "<group>"; };
 		FD3F17FF28055CFA009B38A6 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
-		FD3F180B2806A89D009B38A6 /* PhotosSLideShowCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotosSLideShowCollectionViewCell.swift; path = Photos/PhotosSLideShowCollectionViewCell.swift; sourceTree = "<group>"; };
 		FD3F180D2806A9D0009B38A6 /* PhotosSlideShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotosSlideShowViewController.swift; path = Photos/PhotosSlideShowViewController.swift; sourceTree = "<group>"; };
+		FD3F184628092374009B38A6 /* PhotosSlideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotosSlideCollectionViewCell.swift; path = Photos/PhotosSlideCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,12 +149,9 @@
 			isa = PBXGroup;
 			children = (
 				FD3F180D2806A9D0009B38A6 /* PhotosSlideShowViewController.swift */,
-				FD3F180B2806A89D009B38A6 /* PhotosSLideShowCollectionViewCell.swift */,
-				FD3F17C627F6DB81009B38A6 /* PhotoSliderCollectionViewCell.swift */,
-				FD3F17C427F6D71F009B38A6 /* PhotoSliderViewController.swift */,
+				FD3F184628092374009B38A6 /* PhotosSlideCollectionViewCell.swift */,
 				18525B6E2731AF9F00BDDF6B /* SwipeImageCollectionViewCell.swift */,
 				18525B6C2731AC1000BDDF6B /* SwipeImageViewController.swift */,
-				189C8A5D2729D9A2001710B7 /* SlideShowPhotoCollectionViewCell.swift */,
 				FD3F17FC2804263A009B38A6 /* ImagePreviewVC.swift */,
 				181F92F7273D965100592804 /* CHTCollectionViewWaterfallLayout.swift */,
 				18525B6A27314CA600BDDF6B /* CustomLayout.swift */,
@@ -171,7 +160,6 @@
 				183BCD232729A9D9000C3C2C /* PhotoCollectionViewController.swift */,
 				183BCD242729A9D9000C3C2C /* PhotoEventCollectionViewCell.swift */,
 				183BCD252729A9D9000C3C2C /* PhotoEventDisplayViewController.swift */,
-				183BCD262729A9D9000C3C2C /* SlideShowEPhotosViewController.swift */,
 			);
 			name = Photos;
 			sourceTree = "<group>";
@@ -312,7 +300,7 @@
 				18B37FF92729A6BD0058CE6C /* Sources */,
 				18B37FFA2729A6BD0058CE6C /* Frameworks */,
 				18B37FFB2729A6BD0058CE6C /* Resources */,
-				B7B3D2245FF7F075230324F3 /* [CP] Embed Pods Frameworks */,
+				D4BB64019C518A20A71AFFEB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -350,7 +338,7 @@
 				18B3801D2729A6CB0058CE6C /* Sources */,
 				18B3801E2729A6CB0058CE6C /* Frameworks */,
 				18B3801F2729A6CB0058CE6C /* Resources */,
-				90CCA1533B7310ADDAF1489E /* [CP] Embed Pods Frameworks */,
+				43C87BE1A01C42E7A7B7D44B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -458,6 +446,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		43C87BE1A01C42E7A7B7D44B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Photography-HOTC-Photography-HOTCUITests/Pods-Photography-HOTC-Photography-HOTCUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Photography-HOTC-Photography-HOTCUITests/Pods-Photography-HOTC-Photography-HOTCUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Photography-HOTC-Photography-HOTCUITests/Pods-Photography-HOTC-Photography-HOTCUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		5457BF249DF96F9DCF57C545 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -480,24 +485,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		90CCA1533B7310ADDAF1489E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Photography-HOTC-Photography-HOTCUITests/Pods-Photography-HOTC-Photography-HOTCUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Photography-HOTC-Photography-HOTCUITests/Pods-Photography-HOTC-Photography-HOTCUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Photography-HOTC-Photography-HOTCUITests/Pods-Photography-HOTC-Photography-HOTCUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B7B3D2245FF7F075230324F3 /* [CP] Embed Pods Frameworks */ = {
+		D4BB64019C518A20A71AFFEB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -543,7 +531,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD3F17C727F6DB81009B38A6 /* PhotoSliderCollectionViewCell.swift in Sources */,
 				183BCD292729A9D9000C3C2C /* PhotoEventCollectionViewCell.swift in Sources */,
 				181F92F8273D965200592804 /* CHTCollectionViewWaterfallLayout.swift in Sources */,
 				18525B6F2731AF9F00BDDF6B /* SwipeImageCollectionViewCell.swift in Sources */,
@@ -551,12 +538,11 @@
 				183BCD282729A9D9000C3C2C /* PhotoCollectionViewController.swift in Sources */,
 				FD3F180E2806A9D0009B38A6 /* PhotosSlideShowViewController.swift in Sources */,
 				FD3F17C927FC42D4009B38A6 /* FileManage.swift in Sources */,
-				183BCD2B2729A9D9000C3C2C /* SlideShowEPhotosViewController.swift in Sources */,
 				183BCD382729A9F9000C3C2C /* EventVideoCollectionViewCell.swift in Sources */,
 				18BD252D272A90A100ECE7AA /* PlayVideoViewController.swift in Sources */,
-				189C8A5E2729D9A2001710B7 /* SlideShowPhotoCollectionViewCell.swift in Sources */,
 				18B380052729A6BD0058CE6C /* ViewController.swift in Sources */,
 				183BCD392729A9F9000C3C2C /* EventVideoListViewController.swift in Sources */,
+				FD3F184728092374009B38A6 /* PhotosSlideCollectionViewCell.swift in Sources */,
 				18525B672731495600BDDF6B /* PhotoImage.swift in Sources */,
 				183BCD372729A9F9000C3C2C /* PlayVideoClass.swift in Sources */,
 				FD3F180028055CFB009B38A6 /* UIViewControllerExtension.swift in Sources */,
@@ -566,11 +552,9 @@
 				183BCD2A2729A9D9000C3C2C /* PhotoEventDisplayViewController.swift in Sources */,
 				18525B6D2731AC1000BDDF6B /* SwipeImageViewController.swift in Sources */,
 				18525B6B27314CA600BDDF6B /* CustomLayout.swift in Sources */,
-				FD3F180C2806A89D009B38A6 /* PhotosSLideShowCollectionViewCell.swift in Sources */,
 				FD3F17FD2804263A009B38A6 /* ImagePreviewVC.swift in Sources */,
 				18FE81EE273BED600080C5EF /* ItemModel.swift in Sources */,
 				183BCD3B2729A9F9000C3C2C /* VideoCollectionCollectionViewCell.swift in Sources */,
-				FD3F17C527F6D71F009B38A6 /* PhotoSliderViewController.swift in Sources */,
 				18B380032729A6BD0058CE6C /* SceneDelegate.swift in Sources */,
 				18B3800B2729A6BD0058CE6C /* Photography_HOTC.xcdatamodeld in Sources */,
 				189C8A5C2729C080001710B7 /* DisplayFolderViewController.swift in Sources */,

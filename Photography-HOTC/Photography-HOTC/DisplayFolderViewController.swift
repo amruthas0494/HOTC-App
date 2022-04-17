@@ -18,20 +18,20 @@ struct Video {
     let vtitle: String
     let vthumbnail: [VideoThumbnails]
     let playlist: [PlayList]
-//    let thumbnails : [URL]
+    //    let thumbnails : [URL]
 }
 struct PlayList {
-   // let videoThumbnail : URL?
+    // let videoThumbnail : URL?
     let videoURL : URL?
     
 }
 struct Background {
     let images: [URL]
-   
+    
 }
 struct VideoThumbnails {
     let thumbnails : [URL]
-   
+    
 }
 
 class DisplayFolderViewController: UIViewController{
@@ -62,14 +62,14 @@ class DisplayFolderViewController: UIViewController{
     var ScreenBackground:String!
     var backgroundImg : [String] = []
     var standardImg: [URL] = []
-   
+    
     
     
     let delayInSeconds = 0.0
     
     var url :URL?
+    var backgroundPhoto :URL?
     
-   
     
     @IBAction func photoTapped(_ sender: Any) {
         let vc = PhotoCollectionViewController.instantiate(fromStoryboard: .Main)
@@ -89,10 +89,10 @@ class DisplayFolderViewController: UIViewController{
         vc.videoImage = self.videosName
         vc.eventvideos = videos
         vc.backgroundFolder = backgroundFolder
-
         
-//        vc.eventphotos = photos
-//        vc.eventImage = standardImg
+        
+        //        vc.eventphotos = photos
+        //        vc.eventImage = standardImg
         self.navigationController?.pushViewController(vc, animated: true)
         
         
@@ -111,7 +111,14 @@ class DisplayFolderViewController: UIViewController{
         super.viewDidLoad()
         
         listFolders()
-      
+        for image in standardImg {
+            if let data = try? Data(contentsOf: image)
+            {
+                let image: UIImage = UIImage(data: data)!
+                self.imageVIew.image = image
+                
+            }
+        }
         
         self.photoFolder.layer.borderWidth = 3
         self.photoFolder.layer.borderColor = UIColor.white.cgColor
@@ -126,9 +133,9 @@ class DisplayFolderViewController: UIViewController{
         self.videoFolder.layer.masksToBounds = false
         self.videoFolder.clipsToBounds = true
         //self.imageVIew.image = UIImage(named: backgroundImage!)
-
         
-      
+        
+        
         
         
         
@@ -156,142 +163,143 @@ class DisplayFolderViewController: UIViewController{
             let files = try FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil)
             return files
         } catch {
-           return []
+            return []
         }
     }
-
+    
     func listFolders() {
         let fileManager = FileManager.default
         let dirPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
         if dirPath.isHavingFiles {
-        if let eventDirectory = getSubDirectories(of: dirPath).first {
-            var media = getSubDirectories(of: eventDirectory)
-            if eventDirectory.isHavingFiles {
-            print("true")
-            getFolderNames()
-            }
-            else {
-                self.setLabel.text = "Bride & Bridegroom"
-            }
-            let backgroundDir = media.filter { $0.directoryName == "BACKGROUND" ||  $0.directoryName == "Background"  }.first!
-           
-           // let backgroundDir = media.filter { $0.directoryName == filenames[0] }.first!
-            var background = getSubDirectories(of: backgroundDir)
-            if backgroundDir.isHavingFiles {
-            getBackgroundImage()
-                
-                }
-            
-            else {
-                self.imageVIew.image = UIImage(named: "Background")
-            }
-            let photosDir = media.filter { $0.directoryName == "PHOTOS" ||  $0.directoryName == "Photos" }.first!
-            if photosDir.isHavingFiles {
-                print("true")
-                let photoTypeDir = getSubDirectories(of: photosDir)
-                for url in photoTypeDir {
-                    let photoItem = Photo(title: url.directoryName.uppercased(), thumbnail:getAllFiles(of: url).first, images: getAllFiles(of: url))
-                   // print(photoItem)
-                    photos.append(photoItem)
-                    standardImg.append(contentsOf: photoItem.images)
-                }
-               // self.getPhotsFolderNames()
-                
-            }
-            else {
-                DispatchQueue.main.async {
-                    self.photoFolder.isHidden = true
-                }
-            }
-           
-
-            let videoDir = media.filter { $0.directoryName == "VIDEOS"  ||  $0.directoryName == "Videos" }.first!
-            if videoDir.isHavingFiles {
-                print("true")
-                var videoTypesDir = getSubDirectories(of: videoDir)
-                let background = videoTypesDir.filter { $0.directoryName == "BACKGROUND"  ||  $0.directoryName == "Background" }.first!
-                if background.isHavingFiles {
-                //print(background)
-                let backgroundItem = Background(images: getAllFiles(of: background))
-                print(backgroundItem)
-                    backgroundFolder.append(backgroundItem)
+            if let eventDirectory = getSubDirectories(of: dirPath).first {
+                var media = getSubDirectories(of: eventDirectory)
+                if eventDirectory.isHavingFiles {
+                    print("true")
+                    getFolderNames()
+                    let backgroundDir = media.filter { $0.directoryName == "BACKGROUND" ||  $0.directoryName == "Background"  }.first!
+                    
+                    // let backgroundDir = media.filter { $0.directoryName == filenames[0] }.first!
+                    //var background = getSubDirectories(of: backgroundDir)
+                    if backgroundDir.isHavingFiles {
+                        getBackgroundImage()
+                        //                    let backImage = getAllFiles(of: backgroundDir)
+                        //                    for image in backImage{
+                        //                    self.standardImg.append(image)
+                        //                    print(standardImg)
+                        //                    }
+                    }
+                    
+                    else {
+                        self.imageVIew.image = UIImage(named: "Background")
+                    }
+                    let photosDir = media.filter { $0.directoryName == "PHOTOS" ||  $0.directoryName == "Photos" }.first!
+                    if photosDir.isHavingFiles {
+                        print("true")
+                        let photoTypeDir = getSubDirectories(of: photosDir)
+                        for url in photoTypeDir {
+                            let photoItem = Photo(title: url.directoryName.uppercased(), thumbnail:getAllFiles(of: url).first, images: getAllFiles(of: url))
+                            // print(photoItem)
+                            photos.append(photoItem)
+                            //standardImg.append(contentsOf: photoItem.images)
+                        }
+                        // self.getPhotsFolderNames()
+                        
+                    }
+                    else {
+                        DispatchQueue.main.async {
+                            self.photoFolder.isHidden = true
+                        }
+                    }
+                    
+                    
+                    let videoDir = media.filter { $0.directoryName == "VIDEOS"  ||  $0.directoryName == "Videos" }.first!
+                    if videoDir.isHavingFiles {
+                        print("true")
+                        var videoTypesDir = getSubDirectories(of: videoDir)
+                        let background = videoTypesDir.filter { $0.directoryName == "BACKGROUND"  ||  $0.directoryName == "Background" }.first!
+                        if background.isHavingFiles {
+                            //print(background)
+                            let backgroundItem = Background(images: getAllFiles(of: background))
+                            print(backgroundItem)
+                            backgroundFolder.append(backgroundItem)
+                        }
+                        else {
+                            print("no images")
+                        }
+                        videoTypesDir.removeFirst()
+                        print(videoTypesDir)
+                        
+                        for videoUrl in videoTypesDir {
+                            let videosFiles = videoUrl.allFiles
+                            let thumbNail = videosFiles.filter { $0.directoryName == "Thumbnails" }.first!
+                            // print(thumbNail)
+                            if thumbNail.isHavingFiles {
+                                let thumbnailFiles = VideoThumbnails(thumbnails: getAllFiles(of: thumbNail))
+                                print(thumbnailFiles)
+                                videothumbnail.append(thumbnailFiles)
+                                //
+                                
+                                
+                            }
+                            
+                            for  video in videosFiles {
+                                
+                                print("video", video)
+                                
+                                let playlistItem = PlayList(videoURL: video)
+                                
+                            }
+                        }
+                    }
+                    else {
+                        DispatchQueue.main.async {
+                            self.videoFolder.isHidden = true
+                        }
+                    }
                 }
                 else {
-                    print("no images")
+                    self.setLabel.text = "Bride & Bridegroom"
                 }
-                videoTypesDir.removeFirst()
-                print(videoTypesDir)
-               
-                for videoUrl in videoTypesDir {
-                    let videosFiles = videoUrl.allFiles
-                    let thumbNail = videosFiles.filter { $0.directoryName == "Thumbnails" }.first!
-                   // print(thumbNail)
-                    if thumbNail.isHavingFiles {
-                        let thumbnailFiles = VideoThumbnails(thumbnails: getAllFiles(of: thumbNail))
-                        print(thumbnailFiles)
-                        videothumbnail.append(thumbnailFiles)
-//
-                        
-                       
-                    }
-                    
-                    for  video in videosFiles {
-                        
-                        print("video", video)
-                        
-                    let playlistItem = PlayList(videoURL: video)
-                        
-                    }
-                    
-                   
-//                    let videoItem = vide
-//                    print(videoItem)
-//                    videos.append(videoItem)
-                   
-                   
-                }
-//
+                
+                
+                
+                //                    let videoItem = vide
+                //                    print(videoItem)
+                //                    videos.append(videoItem)
+                
                 
             }
-            else {
-                DispatchQueue.main.async {
-                    self.videoFolder.isHidden = true
-                }
-            }
-           
-      
-            //print(photosDir.isHavingFiles)
-    
+            //
+            
         }
         
-    }
         else {
             self.setLabel.text = "Bride & Bridegroom"
-             self.photoFolder.isHidden = true
-             self.videoFolder.isHidden = true
+            self.photoFolder.isHidden = true
+            self.videoFolder.isHidden = true
         }
     }
-       
+    
     
 }
 
 extension DisplayFolderViewController  {
     func allFileListFromDocumentDir(whichExtension: String?) -> [URL]? {
-       let fileManager = FileManager.default
-       let documentDirectory = FileManage.documentsDirectory()
-       do {
-           let fileUrls = try fileManager.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil, options: [])
-           if let pathExtension = whichExtension {
-               let specificFiles = fileUrls.filter{ $0.pathExtension == pathExtension }
-               return specificFiles
-           } else {
-               return fileUrls
-           }
-       } catch {
-           print("Error while enumerating files \(documentDirectory.path): \(error.localizedDescription)")
-           return nil
-       }
-   }
+        let fileManager = FileManager.default
+        let documentDirectory = FileManage.documentsDirectory()
+        do {
+            let fileUrls = try fileManager.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil, options: [])
+            if let pathExtension = whichExtension {
+                let specificFiles = fileUrls.filter{ $0.pathExtension == pathExtension }
+                return specificFiles
+            } else {
+                return fileUrls
+            }
+        } catch {
+            print("Error while enumerating files \(documentDirectory.path): \(error.localizedDescription)")
+            return nil
+        }
+    }
     func getFolderNames(){
         func contentsOfDirectoryAtPath(path: String) -> [String]? {
             guard let paths = try? FileManager.default.contentsOfDirectory(atPath: path) else { return nil}
@@ -305,8 +313,8 @@ extension DisplayFolderViewController  {
             
             filenames.append(contentsOf: pathFilter)
             filenames.sort()
-           // print(filenames)
-           
+            // print(filenames)
+            
             
             for files in self.filenames {
                 
@@ -379,7 +387,7 @@ extension DisplayFolderViewController  {
         }
     }
     
- 
+    
 }
 
 extension URL {
@@ -408,7 +416,7 @@ extension URL {
             let files = try FileManager.default.contentsOfDirectory(at: self, includingPropertiesForKeys: nil)
             return files
         } catch {
-           return []
+            return []
         }
     }
     
