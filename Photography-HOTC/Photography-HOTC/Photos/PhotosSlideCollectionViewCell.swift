@@ -11,4 +11,5 @@ import UIKit
 class PhotosSlideCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var slideImageView: UIImageView!
+    
 }

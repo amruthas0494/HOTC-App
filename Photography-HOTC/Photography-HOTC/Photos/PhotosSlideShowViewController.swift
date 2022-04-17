@@ -71,10 +71,8 @@ extension PhotosSlideShowViewController : UICollectionViewDataSource, UICollecti
                  }
               }
 
-       // cell?.slideImageView.image = Images[indexPath.item]
         cell?.slideImageView.contentMode = .scaleAspectFill
-        
-        
+  
         return cell!
     }
     

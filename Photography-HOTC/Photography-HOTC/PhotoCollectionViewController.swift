@@ -136,11 +136,10 @@ extension PhotoCollectionViewController : UICollectionViewDelegate {
 
         let currentCell = collectionView.cellForItem(at: indexPath)! as! PhotoCollectionCollectionViewCell
         eventname = currentCell.photoLabel.text!
-        let vc = PhotoEventDisplayViewController.instantiate(fromStoryboard: .Main)
-        vc.labelName = eventname
-       // vc.swipImages = IMAGES
-        vc.viewImages = eventphotos[indexPath.item].images
-        self.navigationController?.pushViewController(vc, animated: true)
+        let viewcontroller = PhotoEventDisplayViewController.instantiate(fromStoryboard: .Main)
+        viewcontroller.labelName = eventname
+        viewcontroller.viewImages = eventphotos[indexPath.item].images
+        self.navigationController?.pushViewController(viewcontroller, animated: true)
         
         
     }

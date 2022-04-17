@@ -41,7 +41,6 @@
 		895EEFFCD17923412CEE7895 /* Pods_Photography_HOTC_Photography_HOTCUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083300A63F6A2BFB4EAC124B /* Pods_Photography_HOTC_Photography_HOTCUITests.framework */; };
 		CD62E34504A26A85E4865367 /* Pods_Photography_HOTCTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73973F6719856DC7C141971F /* Pods_Photography_HOTCTests.framework */; };
 		FD3F17C927FC42D4009B38A6 /* FileManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F17C827FC42D4009B38A6 /* FileManage.swift */; };
-		FD3F17FD2804263A009B38A6 /* ImagePreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F17FC2804263A009B38A6 /* ImagePreviewVC.swift */; };
 		FD3F180028055CFB009B38A6 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F17FF28055CFA009B38A6 /* UIViewControllerExtension.swift */; };
 		FD3F180E2806A9D0009B38A6 /* PhotosSlideShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F180D2806A9D0009B38A6 /* PhotosSlideShowViewController.swift */; };
 		FD3F184728092374009B38A6 /* PhotosSlideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F184628092374009B38A6 /* PhotosSlideCollectionViewCell.swift */; };
@@ -111,7 +110,6 @@
 		CFD24992AC5370DFA182CB5C /* Pods-Photography-HOTC-Photography-HOTCUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Photography-HOTC-Photography-HOTCUITests.release.xcconfig"; path = "Target Support Files/Pods-Photography-HOTC-Photography-HOTCUITests/Pods-Photography-HOTC-Photography-HOTCUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DA929ECBC069961B0BC2FEA8 /* Pods-Photography-HOTC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Photography-HOTC.debug.xcconfig"; path = "Target Support Files/Pods-Photography-HOTC/Pods-Photography-HOTC.debug.xcconfig"; sourceTree = "<group>"; };
 		FD3F17C827FC42D4009B38A6 /* FileManage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManage.swift; sourceTree = "<group>"; };
-		FD3F17FC2804263A009B38A6 /* ImagePreviewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePreviewVC.swift; sourceTree = "<group>"; };
 		FD3F17FF28055CFA009B38A6 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		FD3F180D2806A9D0009B38A6 /* PhotosSlideShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotosSlideShowViewController.swift; path = Photos/PhotosSlideShowViewController.swift; sourceTree = "<group>"; };
 		FD3F184628092374009B38A6 /* PhotosSlideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotosSlideCollectionViewCell.swift; path = Photos/PhotosSlideCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -152,7 +150,6 @@
 				FD3F184628092374009B38A6 /* PhotosSlideCollectionViewCell.swift */,
 				18525B6E2731AF9F00BDDF6B /* SwipeImageCollectionViewCell.swift */,
 				18525B6C2731AC1000BDDF6B /* SwipeImageViewController.swift */,
-				FD3F17FC2804263A009B38A6 /* ImagePreviewVC.swift */,
 				181F92F7273D965100592804 /* CHTCollectionViewWaterfallLayout.swift */,
 				18525B6A27314CA600BDDF6B /* CustomLayout.swift */,
 				18FE81ED273BED600080C5EF /* ItemModel.swift */,
@@ -552,7 +549,6 @@
 				183BCD2A2729A9D9000C3C2C /* PhotoEventDisplayViewController.swift in Sources */,
 				18525B6D2731AC1000BDDF6B /* SwipeImageViewController.swift in Sources */,
 				18525B6B27314CA600BDDF6B /* CustomLayout.swift in Sources */,
-				FD3F17FD2804263A009B38A6 /* ImagePreviewVC.swift in Sources */,
 				18FE81EE273BED600080C5EF /* ItemModel.swift in Sources */,
 				183BCD3B2729A9F9000C3C2C /* VideoCollectionCollectionViewCell.swift in Sources */,
 				18B380032729A6BD0058CE6C /* SceneDelegate.swift in Sources */,

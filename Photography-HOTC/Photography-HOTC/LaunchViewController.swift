@@ -36,13 +36,6 @@ class LaunchViewController: UIViewController {
         avPlayer.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 1) , queue: .main) { [weak self] time in
             
             if time == avAssets.duration {
-//                let navController: UINavigationController!
-//                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeScreen") as! DisplayFolderViewController
-//               // navController = UINavigationController(rootViewController: vc)
-//               // navController.isNavigationBarHidden = true
-//                self?.present(vc, animated: true, completion: nil)
-//
-                //self?.navigationController?.pushViewController(vc, animated: true)
                 let vc = DisplayFolderViewController.instantiate(fromStoryboard: .Main)
                 self?.navigationController?.pushViewController(vc, animated: true)
             }

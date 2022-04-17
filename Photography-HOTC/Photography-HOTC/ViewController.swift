@@ -21,17 +21,7 @@ class ViewController: UIViewController {
         player = AVPlayer(url: avPlayer)
         playercontroller.player = player
        
-        
-
-        
-        
-        
-        /*  let avPlayerLayer = AVPlayerLayer(player: player)
-        
-         avPlayerLayer.videoGravity = .resizeAspectFill
-          avPlayerLayer.frame = self.view.bounds
-          self.view.layer.addSublayer(avPlayerLayer)
-          avPlayer.play()*/
+   
     }
     override func viewDidAppear(_ animated: Bool) {
          self.present(playercontroller, animated: true, completion: nil)

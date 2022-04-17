@@ -10,10 +10,7 @@ import UIKit
 
 
 class EventVideoCollectionViewCell: UICollectionViewCell {
-    
-   
-
-    
+ 
     @IBOutlet weak var displayTumbnail: UIImageView!
     
     @IBOutlet weak var videoButton: UIButton!

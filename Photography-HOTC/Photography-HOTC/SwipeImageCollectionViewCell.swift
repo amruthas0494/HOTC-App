@@ -9,7 +9,6 @@
 import UIKit
 
 class SwipeImageCollectionViewCell: UICollectionViewCell {
-   
-    
+ 
     @IBOutlet weak var swipeImage: UIImageView!
 }

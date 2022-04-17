@@ -9,8 +9,6 @@
 import UIKit
 
 class VideoCollectionCollectionViewCell: UICollectionViewCell {
-    
-    
     @IBOutlet weak var videoImage: UIImageView!
     
     @IBOutlet weak var videoLabel: UILabel!

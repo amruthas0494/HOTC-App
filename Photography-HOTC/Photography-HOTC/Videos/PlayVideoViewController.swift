@@ -14,7 +14,7 @@ import MediaPlayer
 class PlayVideoViewController: UIViewController,  AVPlayerViewControllerDelegate {
     let step:Float=10
     var playVideoNow: String?
-    // var player = AVPlayer()
+  
     private lazy var player: AVPlayer = .init()
     private var fadeTimer: Timer?
     var playercontroller = AVPlayerViewController()

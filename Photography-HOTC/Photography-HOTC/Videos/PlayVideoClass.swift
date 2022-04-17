@@ -26,4 +26,5 @@ class PlayVideoClass: UIView {
             playerLayer.player = newValue;
         }
     }
+    
 }

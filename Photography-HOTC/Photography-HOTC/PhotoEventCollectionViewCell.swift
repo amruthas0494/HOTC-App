@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class PhotoEventCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var eventPhotos: UIImageView!

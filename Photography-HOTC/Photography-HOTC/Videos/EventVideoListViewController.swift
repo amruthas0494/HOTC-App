@@ -11,7 +11,6 @@ import AVKit
 import AVFoundation
 import MediaPlayer
 
-
 class EventVideoListViewController: UIViewController {
     let step:Float=10
 
@@ -93,9 +92,7 @@ class EventVideoListViewController: UIViewController {
         myView.backgroundColor = UIColor.gray
         myView.layer.cornerRadius = 20
         myView.clipsToBounds = true
-        _ = mpVolumeView.volumeSlider
         
-        //  view.addSubview(mpVolumeView)
     }
     
 }

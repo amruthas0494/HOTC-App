@@ -43,12 +43,8 @@ class SwipeImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         labelName.text = headerLabel
-        
-       // print(imagesTOBeSlided)
-        
-        
-        
-        
+
+
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -80,8 +76,7 @@ extension SwipeImageViewController : UICollectionViewDataSource {
                    }
                  }
               }
-             
-//        cell?.swipeImage.image = imagesTOBeSlided[indexPath.item]
+
         cell?.swipeImage.contentMode = .scaleAspectFill
         
         return cell!

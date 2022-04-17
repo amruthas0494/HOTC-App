@@ -10,7 +10,6 @@ import UIKit
 
 class VideoCollectionViewController: UIViewController {
     
-    
     @IBOutlet weak var videoCollection: UICollectionView!
     
     @IBOutlet weak var displayFolderName: UILabel!
