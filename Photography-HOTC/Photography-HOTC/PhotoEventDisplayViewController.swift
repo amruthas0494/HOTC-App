@@ -58,6 +58,7 @@ class PhotoEventDisplayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       // print(viewImages)
+        
       self.nameOutlet.text = labelName
         eventCollection.dataSource = self
         eventCollection.delegate = self
@@ -114,16 +115,21 @@ extension PhotoEventDisplayViewController : UICollectionViewDataSource {
       
 
         let eventImage = viewImages[indexPath.item]
+            DispatchQueue.global().async {
+                 if let data = try? Data( contentsOf: eventImage)
+                 {
+                   DispatchQueue.main.async {
+                     cell.eventPhotos.image = UIImage( data:data)
+                      
+                   }
+                 }
+              }
+             
         
-   
-         
-        let data = try? Data(contentsOf: eventImage)
+        
+      
 
-     if let imageData = data {
-         let imageAdded = UIImage(data: imageData)
-         cell.eventPhotos.image = imageAdded
-         swipImages.append(imageAdded!)
-     }
+
         return cell
     }
     
@@ -135,7 +141,7 @@ extension PhotoEventDisplayViewController : UICollectionViewDelegate {
      
         vc.headerLabel = labelName
         vc.selectedImage = indexPath.item
-        vc.imagesTOBeSlided = swipImages
+        vc.images = viewImages
         self.navigationController?.pushViewController(vc, animated: true)
 
      

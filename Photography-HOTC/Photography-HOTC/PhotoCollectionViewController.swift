@@ -14,7 +14,7 @@ class PhotoCollectionViewController: UIViewController {
     var eventImage = [URL]()
     
     var eventname:String = ""
-    var IMAGES:[URL] = []
+    var IMAGES:[UIImage] = []
     var Array = [URL]()
     
     var Eventtitle:[String] = []
@@ -97,13 +97,15 @@ extension PhotoCollectionViewController: UICollectionViewDataSource {
             let thumbnailImage = eventphotos[indexPath.item].thumbnail
 
            //  print(thumbnailImage)
+        DispatchQueue.global().async {
+            if let data = try? Data( contentsOf: thumbnailImage!)
+        {
+          DispatchQueue.main.async {
+            cell.photoCollection.image = UIImage( data:data)
+          }
+        }
+     }
              
-             let data = try? Data(contentsOf: thumbnailImage!)
-
-         if let imageData = data {
-             let imageAdded = UIImage(data: imageData)
-             cell.photoCollection.image = imageAdded
-         }
             cell.photoCollection.layer.borderWidth = 3
             cell.photoCollection.layer.cornerRadius = 3
             cell.photoCollection.layer.borderColor = UIColor.white.cgColor
@@ -113,11 +115,11 @@ extension PhotoCollectionViewController: UICollectionViewDataSource {
             
             
             eventname =  cell.photoLabel.text!
-        IMAGES =  eventphotos[indexPath.item].images
+       // IMAGES =  eventphotos[indexPath.item].images
            // Eventtitle = e
 //            print(eventname)
 //        print(IMAGES)
-//        
+//
        
        
    
@@ -136,6 +138,7 @@ extension PhotoCollectionViewController : UICollectionViewDelegate {
         eventname = currentCell.photoLabel.text!
         let vc = PhotoEventDisplayViewController.instantiate(fromStoryboard: .Main)
         vc.labelName = eventname
+       // vc.swipImages = IMAGES
         vc.viewImages = eventphotos[indexPath.item].images
         self.navigationController?.pushViewController(vc, animated: true)
         
@@ -159,6 +162,5 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
     
 }
-
 
 

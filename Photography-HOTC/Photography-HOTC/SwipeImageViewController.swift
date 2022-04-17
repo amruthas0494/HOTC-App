@@ -34,7 +34,7 @@ class SwipeImageViewController: UIViewController {
     
     @IBAction func playTapped(_ sender: UIButton) {
         let vc = PhotosSlideShowViewController.instantiate(fromStoryboard: .Main)
-        vc.Images = imagesTOBeSlided
+        vc.slideImages = images
         self.navigationController?.pushViewController(vc, animated: true)
         
         
@@ -64,13 +64,24 @@ class SwipeImageViewController: UIViewController {
 }
 extension SwipeImageViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        imagesTOBeSlided.count
+        images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "swipeImage", for: indexPath) as? SwipeImageCollectionViewCell
-        cell?.swipeImage.image = imagesTOBeSlided[indexPath.item]
+        let swipe = images[indexPath.item]
+            DispatchQueue.global().async {
+                 if let data = try? Data( contentsOf: swipe)
+                 {
+                   DispatchQueue.main.async {
+                     cell?.swipeImage.image = UIImage( data:data)
+                      
+                   }
+                 }
+              }
+             
+//        cell?.swipeImage.image = imagesTOBeSlided[indexPath.item]
         cell?.swipeImage.contentMode = .scaleAspectFill
         
         return cell!

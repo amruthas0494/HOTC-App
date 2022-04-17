@@ -35,7 +35,7 @@ class PhotosSlideShowViewController: UIViewController {
    
     @objc func slideToNextPhoto() {
         
-        if counter < Images.count  {
+        if counter < slideImages.count  {
             self.slideShowCollectionView.scrollToItem(at: IndexPath(item: counter, section: 0), at: .centeredHorizontally, animated: true)
             counter += 1
            
@@ -55,14 +55,23 @@ class PhotosSlideShowViewController: UIViewController {
 }
 extension PhotosSlideShowViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Images.count
+        return slideImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "slideImage", for: indexPath) as? PhotosSlideCollectionViewCell
+        let slide = slideImages[indexPath.item]
+            DispatchQueue.global().async {
+                 if let data = try? Data( contentsOf: slide)
+                 {
+                   DispatchQueue.main.async {
+                     cell?.slideImageView.image = UIImage( data:data)
+                      
+                   }
+                 }
+              }
 
-
-        cell?.slideImageView.image = Images[indexPath.item]
+       // cell?.slideImageView.image = Images[indexPath.item]
         cell?.slideImageView.contentMode = .scaleAspectFill
         
         
