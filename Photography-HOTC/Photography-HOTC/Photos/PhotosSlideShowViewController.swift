@@ -31,6 +31,7 @@ class PhotosSlideShowViewController: UIViewController {
         self.scheduleTime = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.slideToNextPhoto), userInfo: nil, repeats: true)
         
         
+        
     }
    
     @objc func slideToNextPhoto() {
@@ -71,7 +72,7 @@ extension PhotosSlideShowViewController : UICollectionViewDataSource, UICollecti
                  }
               }
 
-        cell?.slideImageView.contentMode = .scaleAspectFill
+       // cell?.slideImageView.contentMode = .scaleAspectFill
   
         return cell!
     }

@@ -584,12 +584,21 @@
                                             <rect key="frame" x="0.0" y="0.0" width="270" height="300"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7na-Re-pCZ">
+                                                    <rect key="frame" x="8" y="8" width="253" height="284"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <connections>
+                                                        <action selector="selectButtonTapped:" destination="NhQ-Bn-JY3" eventType="touchUpInside" id="4vw-wO-xbU"/>
+                                                    </connections>
+                                                </button>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zl7-GD-T5T">
                                                     <rect key="frame" x="8" y="8" width="253" height="284"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <view alpha="0.30000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LMc-qW-rGd">
+                                                <view alpha="0.30000001192092896" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LMc-qW-rGd">
                                                     <rect key="frame" x="8" y="8" width="253" height="284"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SANGEET" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="doh-sC-XAf">
@@ -600,17 +609,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="LMc-qW-rGd" secondAttribute="trailing" constant="9" id="0Kv-Wg-aJ8"/>
-                                                <constraint firstAttribute="bottom" secondItem="LMc-qW-rGd" secondAttribute="bottom" constant="8" id="Oft-Nd-dpA"/>
-                                                <constraint firstItem="LMc-qW-rGd" firstAttribute="leading" secondItem="ukg-pa-Yqf" secondAttribute="leading" constant="8" id="XaH-Sq-4Qu"/>
-                                                <constraint firstItem="LMc-qW-rGd" firstAttribute="top" secondItem="ukg-pa-Yqf" secondAttribute="top" constant="8" id="oE2-tM-BQD"/>
-                                            </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="270" height="300"/>
                                         <connections>
+                                            <outlet property="submitButton" destination="7na-Re-pCZ" id="tsQ-GU-gHN"/>
                                             <outlet property="videoImage" destination="Zl7-GD-T5T" id="Uni-lC-aIF"/>
                                             <outlet property="videoLabel" destination="doh-sC-XAf" id="pzg-c4-Vdb"/>
+                                            <outlet property="vwContainer" destination="LMc-qW-rGd" id="4Wu-gT-tOk"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -660,7 +665,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ewF-dc-Pt4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="247" y="824"/>
+            <point key="canvasLocation" x="246.875" y="823.828125"/>
         </scene>
         <!--Event Video List View Controller-->
         <scene sceneID="paS-Fm-YU8">

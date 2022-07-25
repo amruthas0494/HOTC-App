@@ -93,18 +93,20 @@ extension PhotoCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCollection", for: indexPath) as! PhotoCollectionCollectionViewCell
-      
-            let thumbnailImage = eventphotos[indexPath.item].thumbnail
+        if let thumbnailImage = eventphotos[indexPath.item].thumbnail {
+            DispatchQueue.global().async {
+                if let data = try? Data( contentsOf: thumbnailImage)
+            {
+              DispatchQueue.main.async {
+                cell.photoCollection.image = UIImage( data:data)
+              }
+            }
+         }
+        }
+           // let thumbnailImage = eventphotos[indexPath.item].thumbnail
 
            //  print(thumbnailImage)
-        DispatchQueue.global().async {
-            if let data = try? Data( contentsOf: thumbnailImage!)
-        {
-          DispatchQueue.main.async {
-            cell.photoCollection.image = UIImage( data:data)
-          }
-        }
-     }
+    
              
             cell.photoCollection.layer.borderWidth = 3
             cell.photoCollection.layer.cornerRadius = 3

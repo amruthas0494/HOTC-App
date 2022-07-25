@@ -16,8 +16,8 @@ struct Photo {
 
 struct Video {
     let vtitle: String
-    let vthumbnail: [VideoThumbnails]
-    let playlist: [PlayList]
+    var vthumbnail: VideoThumbnails
+    let playlist: [URL]
     //    let thumbnails : [URL]
 }
 struct PlayList {
@@ -30,7 +30,7 @@ struct Background {
     
 }
 struct VideoThumbnails {
-    let thumbnails : [URL]
+    var thumbnails : [URL]
     
 }
 
@@ -39,10 +39,12 @@ class DisplayFolderViewController: UIViewController{
     let fileManager:FileManager = FileManager.default
     var photos = [Photo]()
     var videos = [Video]()
-    var backgroundFolder = [Background]()
-    var videothumbnail  = [VideoThumbnails]()
+    var backgroundFolder : Background?
+    //var videothumbnail  = [VideoThumbnails]()
+    var videothumbnail : VideoThumbnails?
     var eventvideoThumbnail :URL?
-    
+    var  playListURL = [URL]()
+    var videoFile : String?
     @IBOutlet weak var imageVIew: UIImageView!
     
     
@@ -176,96 +178,127 @@ class DisplayFolderViewController: UIViewController{
                 if eventDirectory.isHavingFiles {
                     print("true")
                     getFolderNames()
-                    let backgroundDir = media.filter { $0.directoryName == "BACKGROUND" ||  $0.directoryName == "Background"  }.first!
-                    
-                    // let backgroundDir = media.filter { $0.directoryName == filenames[0] }.first!
-                    //var background = getSubDirectories(of: backgroundDir)
-                    if backgroundDir.isHavingFiles {
-                        getBackgroundImage()
-                        //                    let backImage = getAllFiles(of: backgroundDir)
-                        //                    for image in backImage{
-                        //                    self.standardImg.append(image)
-                        //                    print(standardImg)
-                        //                    }
-                    }
-                    
-                    else {
-                        self.imageVIew.image = UIImage(named: "Background")
-                    }
-                    let photosDir = media.filter { $0.directoryName == "PHOTOS" ||  $0.directoryName == "Photos" }.first!
-                    if photosDir.isHavingFiles {
-                        print("true")
-                        let photoTypeDir = getSubDirectories(of: photosDir)
-                        for url in photoTypeDir {
-                            let photoItem = Photo(title: url.directoryName.uppercased(), thumbnail:getAllFiles(of: url).first, images: getAllFiles(of: url))
-                            // print(photoItem)
-                            photos.append(photoItem)
-                            //standardImg.append(contentsOf: photoItem.images)
-                        }
-                        // self.getPhotsFolderNames()
+                    if let backgroundDir = media.filter { $0.directoryName == "BACKGROUND" ||  $0.directoryName == "Background"  }.first {
                         
-                    }
-                    else {
-                        DispatchQueue.main.async {
-                            self.photoFolder.isHidden = true
+                        if backgroundDir.isHavingFiles {
+                            getBackgroundImage()
+                            
+                        }
+                        
+                        else {
+                            self.imageVIew.image = UIImage(named: "Background")
                         }
                     }
                     
-                    
-                    let videoDir = media.filter { $0.directoryName == "VIDEOS"  ||  $0.directoryName == "Videos" }.first!
-                    if videoDir.isHavingFiles {
-                        print("true")
-                        var videoTypesDir = getSubDirectories(of: videoDir)
-                        let background = videoTypesDir.filter { $0.directoryName == "BACKGROUND"  ||  $0.directoryName == "Background" }.first!
-                        if background.isHavingFiles {
-                            //print(background)
-                            let backgroundItem = Background(images: getAllFiles(of: background))
-                            print(backgroundItem)
-                            backgroundFolder.append(backgroundItem)
+                    if  let photosDir = media.filter { $0.directoryName == "PHOTOS" ||  $0.directoryName == "Photos" }.first {
+                        if photosDir.isHavingFiles {
+                            print("true")
+                            let photoTypeDir = getSubDirectories(of: photosDir)
+                            for url in photoTypeDir {
+                                let photoItem = Photo(title: url.directoryName.uppercased(), thumbnail:getAllFiles(of: url).first, images: getAllFiles(of: url))
+                                // print(photoItem)
+                                photos.append(photoItem)
+                                //standardImg.append(contentsOf: photoItem.images)
+                            }
+                            // self.getPhotsFolderNames()
+                            
                         }
                         else {
-                            print("no images")
+                            DispatchQueue.main.async {
+                                self.photoFolder.isHidden = true
+                            }
                         }
-                        videoTypesDir.removeFirst()
-                        print(videoTypesDir)
                         
-                        for videoUrl in videoTypesDir {
-                            let videosFiles = videoUrl.allFiles
-                            let thumbNail = videosFiles.filter { $0.directoryName == "Thumbnails" }.first!
-                            // print(thumbNail)
-                            if thumbNail.isHavingFiles {
-                                let thumbnailFiles = VideoThumbnails(thumbnails: getAllFiles(of: thumbNail))
-                                print(thumbnailFiles)
-                                videothumbnail.append(thumbnailFiles)
-                                //
+                        
+                    }
+                    
+                    
+                    if let videoDir = media.filter { $0.directoryName == "VIDEOS"  ||  $0.directoryName == "Videos" }.first {
+                        if videoDir.isHavingFiles {
+                            print("true")
+                            var videoTypesDir = getSubDirectories(of: videoDir)
+                            if let background = videoTypesDir.filter { $0.directoryName == "BACKGROUND"  ||  $0.directoryName == "Background" }.first {
+                                if background.isHavingFiles {
+                                    //print(background)
+                                    var backgroundImages = getAllFiles(of: background)
+                                    backgroundImages.sort {
+                                        ($0.pathComponents.last?.components(separatedBy: ".").first)! < ($1.pathComponents.last?.components(separatedBy: ".").first)!
+                                    }
+                                    backgroundImages.removeFirst()
+                                    var backgroundItem = Background(images:backgroundImages)
+                                   
+                                    print(backgroundItem)
+                                    backgroundFolder = backgroundItem
+                                    
+                                    print("no images")
+                                }
+                            }
+                            
+                            
+                            videoTypesDir.removeFirst()
+                            print(videoTypesDir)
+                            
+                            for videoUrl in videoTypesDir {
+                                var videosFiles = videoUrl.allFiles
+                                if let thumbNail = videosFiles.filter { $0.directoryName == "Thumbnails" }.first {
+                                    if ((thumbNail.isHavingFiles) != nil) {
+                                        var allThumbNails = getAllFiles(of: thumbNail)
+                                        allThumbNails.sort {
+                                            ($0.pathComponents.last?.components(separatedBy: ".").first)! < ($1.pathComponents.last?.components(separatedBy: ".").first)!
+                                        }
+                                        allThumbNails.removeFirst()
+                                       
+                                          //  print("filter",allThumbNails)
+//
+                                        var thumbnailFiles = VideoThumbnails(thumbnails:allThumbNails )
+                                        print(thumbnailFiles)
+                                        videothumbnail = thumbnailFiles
+                                        
+                                    
+                                        //
+                                    }
+                                    
+                                }
+                                videosFiles = videosFiles.filter(){ $0.directoryName != "Thumbnails"}
+                                //print(videosFiles)
                                 
+                                for video in videosFiles {
+                                    playListURL.append(video)
+                                 
+                                    
+                                }
+                                playListURL.sort {
+                                        ($0.pathComponents.last?.components(separatedBy: ".").first)! < ($1.pathComponents.last?.components(separatedBy: ".").first)!
+                                    }
+                                playListURL.removeFirst()
+                                if let thumbNail = videothumbnail {
+                                    let eachVideoFolder = Video(vtitle: videoUrl.directoryName.uppercased(), vthumbnail: thumbNail, playlist: playListURL)
+                                    
+                                    videos.append(eachVideoFolder)
+                                    
+                                    print(videos)
+                                }
+                              
+                              
                                 
                             }
                             
-                            for  video in videosFiles {
-                                
-                                print("video", video)
-                                
-                                let playlistItem = PlayList(videoURL: video)
-                                
+                        }
+                        
+                        else {
+                            DispatchQueue.main.async {
+                                self.videoFolder.isHidden = true
                             }
                         }
+                        
                     }
-                    else {
-                        DispatchQueue.main.async {
-                            self.videoFolder.isHidden = true
-                        }
-                    }
-                }
-                else {
+                    
+                    
+                }else {
                     self.setLabel.text = "Bride & Bridegroom"
                 }
                 
                 
-                
-                //                    let videoItem = vide
-                //                    print(videoItem)
-                //                    videos.append(videoItem)
                 
                 
             }

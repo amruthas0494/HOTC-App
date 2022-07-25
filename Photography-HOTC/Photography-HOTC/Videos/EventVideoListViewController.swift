@@ -22,7 +22,7 @@ class EventVideoListViewController: UIViewController {
     var playVideo : AVPlayer?
     var labelName : String?
     var displayImage : String?
-    var sharedVideos : [String] = []
+    var sharedVideos : [URL] = []
     var muhuratsharedvideo : [String] = []
     var preWeddingsharedvideo : [String] = []
     var receptionsharedvideo : [String] = []
@@ -34,6 +34,7 @@ class EventVideoListViewController: UIViewController {
         let view = MPVolumeView()
         return view
     }()
+    var eventVideo : Video?
     var allThumbnails : [UIImage] = []
     let sectionInsets = UIEdgeInsets(
         top: 5.0,
@@ -69,7 +70,10 @@ class EventVideoListViewController: UIViewController {
     @IBOutlet weak var folderName: UILabel!
     @IBOutlet weak var eventVideoList: UICollectionView!
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+       
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -103,14 +107,22 @@ extension EventVideoListViewController : UICollectionViewDataSource, UICollectio
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return allThumbnails.count
+        return eventVideo?.vthumbnail.thumbnails.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = self.eventVideoList.dequeueReusableCell(withReuseIdentifier: "eventVideoList", for: indexPath) as! EventVideoCollectionViewCell
-        if allThumbnails != nil {
-        cell.displayTumbnail.image = allThumbnails[indexPath.item]
+        if let eventVideo = eventVideo {
+            sharedVideos = eventVideo.playlist
+//                sharedVideos.sort {
+//                    ($0.pathComponents.last?.components(separatedBy: ".").first)! < ($1.pathComponents.last?.components(separatedBy: ".").first)!
+//                }
+           
+        }
+        if eventVideo?.vthumbnail.thumbnails != nil {
+            cell.thumbNailadded = eventVideo?.vthumbnail.thumbnails[indexPath.item]
+           
         }
         else {
             cell.displayTumbnail.image = UIImage(named: "Wedding.jpg")
@@ -119,8 +131,14 @@ extension EventVideoListViewController : UICollectionViewDataSource, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        if let playList = eventVideo?.playlist {
+//            player = AVPlayer(url: playList[indexPath.item])
+//        }
       
-        player = AVPlayer(url: URL(fileURLWithPath: sharedVideos[indexPath.item]))
+        print("video", sharedVideos)
+      //  sharedVideos = sharedVideos.filter({ $0 != ".DS_Store" })
+        player = AVPlayer(url: sharedVideos[indexPath.item])
+       // player = AVPlayer(url: URL(fileURLWithPath: sharedVideos[indexPath.item]))
         playercontroller.player = player
         self.playercontroller.modalPresentationStyle = .overFullScreen
         

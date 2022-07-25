@@ -39,7 +39,6 @@ class SwipeImageViewController: UIViewController {
         
         
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         labelName.text = headerLabel
@@ -50,9 +49,13 @@ class SwipeImageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         swipeCollection.dataSource = self
         swipeCollection.delegate = self
+        print(images)
+        print(selectedImage)
         let index = IndexPath.init(item: selectedImage, section: 0)
-        self.swipeCollection.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+        
+        self.swipeCollection.scrollToItem(at: index, at: [.centeredHorizontally, .centeredVertically], animated: true)
         swipeCollection.reloadData()
+        swipeCollection.layoutSubviews()
     }
     
     
@@ -77,7 +80,7 @@ extension SwipeImageViewController : UICollectionViewDataSource {
                  }
               }
 
-        cell?.swipeImage.contentMode = .scaleAspectFill
+       // cell?.swipeImage.contentMode = .scaleAspectFill
         
         return cell!
         
