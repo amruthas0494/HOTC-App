@@ -34,7 +34,7 @@ struct VideoThumbnails {
     
 }
 
-class DisplayFolderViewController: UIViewController{
+class DisplayFolderViewController: UIViewController {
     
     let fileManager:FileManager = FileManager.default
     var photos = [Photo]()
@@ -66,7 +66,7 @@ class DisplayFolderViewController: UIViewController{
     var standardImg: [URL] = []
     
     
-    
+    var names : String = ""
     let delayInSeconds = 0.0
     
     var url :URL?
@@ -221,34 +221,53 @@ class DisplayFolderViewController: UIViewController{
                                 if background.isHavingFiles {
                                     //print(background)
                                     var backgroundImages = getAllFiles(of: background)
-                                    backgroundImages.sort {
-                                        ($0.pathComponents.last?.components(separatedBy: ".").first)! < ($1.pathComponents.last?.components(separatedBy: ".").first)!
-                                    }
-                                    backgroundImages.removeFirst()
+                                   
+                                   
+                                  //  backgroundImages.removeFirst()
                                     var backgroundItem = Background(images:backgroundImages)
                                    
                                     print(backgroundItem)
                                     backgroundFolder = backgroundItem
                                     
-                                    print("no images")
+                                   // print("no images")
                                 }
                             }
-                            
-                            
-                            videoTypesDir.removeFirst()
+                            videoTypesDir.sort {
+                                ($0.pathComponents.last?.components(separatedBy: ".").first)! < ($1.pathComponents.last?.components(separatedBy: ".").first)!
+                            }
+//                            let sortedURLs = vide.sorted { a, b in
+//                                return a.lastPathComponent
+//                                    .localizedStandardCompare(b.lastPathComponent)
+//                                        == ComparisonResult.orderedAscending
+//                            }
+                            videoTypesDir = videoTypesDir.filter{ $0.directoryName != "Background" ||  $0.directoryName != "BACKGROUND" }
                             print(videoTypesDir)
+                         
                             
                             for videoUrl in videoTypesDir {
+                               // self.names = videoUrl.directoryName.uppercased()
+                               // videothumbnail?.thumbnails.removeAll()
                                 var videosFiles = videoUrl.allFiles
+                              
+                                print(videosFiles)
                                 if let thumbNail = videosFiles.filter { $0.directoryName == "Thumbnails" }.first {
                                     if ((thumbNail.isHavingFiles) != nil) {
                                         var allThumbNails = getAllFiles(of: thumbNail)
+                                          print("filter",allThumbNails)
+                                        
+                                       
+                                       // print("filter",allThumbNails)
+//                                        allThumbNails.map { url in
+//                                                    (url.lastPathComponent, (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? Date.distantPast)
+//                                                }.sorted(by: { $0.1 > $1.1 }) // sort descending modification dates
+//                                        .map { $0.0 }
                                         allThumbNails.sort {
                                             ($0.pathComponents.last?.components(separatedBy: ".").first)! < ($1.pathComponents.last?.components(separatedBy: ".").first)!
                                         }
-                                        allThumbNails.removeFirst()
+//                                        allThumbNails.filter(){ $0.dire != ".DS_Store"}
+                                       // allThumbNails.removeFirst()
                                        
-                                          //  print("filter",allThumbNails)
+                                            print("filter",allThumbNails)
 //
                                         var thumbnailFiles = VideoThumbnails(thumbnails:allThumbNails )
                                         print(thumbnailFiles)
@@ -259,20 +278,32 @@ class DisplayFolderViewController: UIViewController{
                                     }
                                     
                                 }
+                            
                                 videosFiles = videosFiles.filter(){ $0.directoryName != "Thumbnails"}
+                             playListURL = videosFiles
+                                playListURL.sort {
+                                    ($0.pathComponents.last?.components(separatedBy: ".").first)! < ($1.pathComponents.last?.components(separatedBy: ".").first)!
+                                }
                                 //print(videosFiles)
+                           
+                             /*   for video in videosFiles {
                                 
-                                for video in videosFiles {
                                     playListURL.append(video)
                                  
                                     
                                 }
-                                playListURL.sort {
-                                        ($0.pathComponents.last?.components(separatedBy: ".").first)! < ($1.pathComponents.last?.components(separatedBy: ".").first)!
-                                    }
-                                playListURL.removeFirst()
+                                playListURL.map { url in
+                                            (url.lastPathComponent, (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? Date.distantPast)
+                                        }.sorted(by: { $0.1 > $1.1 }) // sort descending modification dates
+                                .map { $0.0 }*/
+                                
+                                
+//                                playListURL.sort {
+//                                        ($0.pathComponents.last?.components(separatedBy: ".").first)! < ($1.pathComponents.last?.components(separatedBy: ".").first)!
+//                                    }
+                                //playListURL.removeFirst()
                                 if let thumbNail = videothumbnail {
-                                    let eachVideoFolder = Video(vtitle: videoUrl.directoryName.uppercased(), vthumbnail: thumbNail, playlist: playListURL)
+                                    let eachVideoFolder = Video(vtitle: videoUrl.directoryName, vthumbnail: thumbNail, playlist: playListURL)
                                     
                                     videos.append(eachVideoFolder)
                                     
@@ -283,9 +314,7 @@ class DisplayFolderViewController: UIViewController{
                                 
                             }
                             
-                        }
-                        
-                        else {
+                        }else {
                             DispatchQueue.main.async {
                                 self.videoFolder.isHidden = true
                             }

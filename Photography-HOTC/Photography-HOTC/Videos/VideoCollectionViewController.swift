@@ -94,7 +94,7 @@ class VideoCollectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(eventvideos)
+        print("video added",eventvideos)
        print(backgroundFolder)
         
     /*
@@ -145,7 +145,7 @@ extension VideoCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return eventvideos.count ?? 0
+        return backgroundFolder?.images.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -153,49 +153,34 @@ extension VideoCollectionViewController: UICollectionViewDataSource {
         
         if let backgroundImage = backgroundFolder?.images[indexPath.item] {
             
-            print("array count", backgroundFolder?.images.count)
+          //  print("array count", backgroundFolder?.images.count)
             //  print(thumbnailImage)
             DispatchQueue.global().async {
                 if let data = try? Data( contentsOf: backgroundImage)
             {
               DispatchQueue.main.async {
                 cell.videoImage.image = UIImage( data:data)
+                  
+                
               }
             }
          }
-           /*
-            if backgroundFolder?.images.count == eventvideos.count {
-                print("array count", backgroundFolder?.images.count)
-                //  print(thumbnailImage)
-             DispatchQueue.global().async {
-                 if let data = try? Data( contentsOf: backgroundImage)
-             {
-               DispatchQueue.main.async {
-                 cell.videoImage.image = UIImage( data:data)
-               }
-             }
-          }
-            
-            }
-            else if backgroundFolder?.images.count != eventvideos.count {
-                cell.videoImage.image = UIImage(named: "Wedding.jpg")
-            }*/
-            
+          
         }
 
+        // cell.videoImage.image = bgVideoArray[indexPath.item]
+         cell.videoImage.layer.borderWidth = 3
+         cell.videoImage.layer.cornerRadius = 3
+         cell.videoImage.layer.borderColor = UIColor.white.cgColor
+         cell.videoImage.layer.masksToBounds = false
+         cell.videoImage.clipsToBounds = true
+         cell.videoadded = eventvideos[indexPath.item]
+        cell.videoLabel.text = eventvideos[indexPath.item].vtitle
+         cell.delegate = self
+         //eventname =  videoFolders[indexPath.item]
+         // print(eventname)
        
 
-       // cell.videoImage.image = bgVideoArray[indexPath.item]
-        cell.videoImage.layer.borderWidth = 3
-        cell.videoImage.layer.cornerRadius = 3
-        cell.videoImage.layer.borderColor = UIColor.white.cgColor
-        cell.videoImage.layer.masksToBounds = false
-        cell.videoImage.clipsToBounds = true
-        cell.videoadded = eventvideos[indexPath.item]
-       // cell.videoLabel.text = eventvideos[indexPath.item].vtitle
-        cell.delegate = self
-        //eventname =  videoFolders[indexPath.item]
-        // print(eventname)
         return cell
     }
 }

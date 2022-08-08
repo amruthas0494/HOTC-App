@@ -20,7 +20,8 @@ class PhotosSlideShowViewController: UIViewController {
         bottom: 2.0,
         right:2.0)
    
-  
+    @IBOutlet weak var pauseButton: UIButton!
+    
     @IBOutlet weak var slideShowCollectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -30,7 +31,11 @@ class PhotosSlideShowViewController: UIViewController {
         slideShowCollectionView.delegate = self
         self.scheduleTime = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.slideToNextPhoto), userInfo: nil, repeats: true)
         
-        
+       // pauseButton.layer.borderWidth = 1
+       // pauseButton.layer.masksToBounds = false
+       // pauseButton.layer.borderColor = UIColor.black.cgColor
+        pauseButton.layer.cornerRadius = pauseButton.frame.height/2
+        pauseButton.clipsToBounds = true
         
     }
    
@@ -72,7 +77,7 @@ extension PhotosSlideShowViewController : UICollectionViewDataSource, UICollecti
                  }
               }
 
-       // cell?.slideImageView.contentMode = .scaleAspectFill
+        cell?.slideImageView.contentMode = .scaleAspectFill
   
         return cell!
     }
@@ -86,7 +91,7 @@ extension PhotosSlideShowViewController : UICollectionViewDelegateFlowLayout {
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = slideShowCollectionView.frame.size
+        let size = self.slideShowCollectionView.frame.size
         return CGSize(width: size.width, height: size.height)
     }
     

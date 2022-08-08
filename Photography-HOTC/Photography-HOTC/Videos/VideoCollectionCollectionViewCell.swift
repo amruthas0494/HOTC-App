@@ -12,6 +12,8 @@ protocol VideosDelegate:AnyObject {
 }
 
 class VideoCollectionCollectionViewCell: UICollectionViewCell {
+    
+    
     @IBOutlet weak var videoImage: UIImageView!
     
     @IBOutlet weak var submitButton: UIButton!
@@ -22,10 +24,11 @@ class VideoCollectionCollectionViewCell: UICollectionViewCell {
     
     var videoadded: Video? {
         didSet {
-            if let videoDetails = videoadded {
-                videoLabel.text = videoDetails.vtitle
-                
-           }
+            videoLabel.text = videoadded?.vtitle
+//            if let videoDetails = videoadded {
+//                videoLabel.text = videoDetails.vtitle
+//
+//           }
             }
         }
     
@@ -63,15 +66,16 @@ class VideoCollectionCollectionViewCell: UICollectionViewCell {
        
     }
     
-    @IBAction func selectButtonTapped(_ sender: UIButton) {
-        if let videos = videoadded {
-            self.delegate?.videoselectButtonTapped(videoSelected: videos)
-        }
-        
-    }
+//    @IBAction func selectButtonTapped(_ sender: UIButton) {
+//      //  self.delegate?.videoselectButtonTapped(videoSelected: videoadded ?? [])
+//        if let videos = videoadded {
+//            self.delegate?.videoselectButtonTapped(videoSelected: videos)
+//        }
+//
+//    }
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         print("Hello World")
-      //  self.delegate?.videoselectButtonTapped(videoSelected: videoadded)
+       // self.delegate?.videoselectButtonTapped(videoSelected: videoadded)
         if let videos = videoadded {
             self.delegate?.videoselectButtonTapped(videoSelected: videos)
         }
