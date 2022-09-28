@@ -26,19 +26,32 @@ class PhotosSlideShowViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//print(Images)
         slideShowCollectionView.dataSource = self
         slideShowCollectionView.delegate = self
         self.scheduleTime = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.slideToNextPhoto), userInfo: nil, repeats: true)
+       
+        self.slideShowCollectionView.reloadData()
         
-       // pauseButton.layer.borderWidth = 1
-       // pauseButton.layer.masksToBounds = false
-       // pauseButton.layer.borderColor = UIColor.black.cgColor
+        
         pauseButton.layer.cornerRadius = pauseButton.frame.height/2
         pauseButton.clipsToBounds = true
         
-    }
+       
+        slideShowCollectionView.register(UINib(nibName: "ImageCell", bundle: nil), forCellWithReuseIdentifier: "ImageCell")
    
+       
+        
+    }
+    
+   
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        slideShowCollectionView.collectionViewLayout.invalidateLayout()
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        slideShowCollectionView.collectionViewLayout = flowLayout
+    }
+
     @objc func slideToNextPhoto() {
         
         if counter < slideImages.count  {
@@ -65,21 +78,23 @@ extension PhotosSlideShowViewController : UICollectionViewDataSource, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "slideImage", for: indexPath) as? PhotosSlideCollectionViewCell
-        let slide = slideImages[indexPath.item]
-            DispatchQueue.global().async {
-                 if let data = try? Data( contentsOf: slide)
-                 {
-                   DispatchQueue.main.async {
-                     cell?.slideImageView.image = UIImage( data:data)
-                      
-                   }
-                 }
-              }
-
-        cell?.slideImageView.contentMode = .scaleAspectFill
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
+        let swipe = slideImages[indexPath.item]
+        DispatchQueue.global().async {
+            if let data = try? Data( contentsOf: swipe)
+            {
+                DispatchQueue.main.async {
+                    cell.userImageView.image = UIImage( data:data)?.asOriginal
+                    cell.userImageView.contentMode = .scaleAspectFit
+                   
+                    
+                }
+            }
+        }
+        
+      
   
-        return cell!
+        return cell
     }
     
     
@@ -89,17 +104,16 @@ extension PhotosSlideShowViewController : UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = self.slideShowCollectionView.frame.size
+        let size = slideShowCollectionView.frame.size
         return CGSize(width: size.width, height: size.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return 0.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return 0.0
     }
 }

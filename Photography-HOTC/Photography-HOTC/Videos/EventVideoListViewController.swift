@@ -118,10 +118,13 @@ extension EventVideoListViewController : UICollectionViewDataSource, UICollectio
 //                sharedVideos.sort {
 //                    ($0.pathComponents.last?.components(separatedBy: ".").first)! < ($1.pathComponents.last?.components(separatedBy: ".").first)!
 //                }
-           
+            cell.playVideo = eventVideo.playlist[indexPath.item]
+            cell.delegate = self
         }
+     
         if eventVideo?.vthumbnail.thumbnails != nil {
             cell.thumbNailadded = eventVideo?.vthumbnail.thumbnails[indexPath.item]
+           
            
         }
         else {
@@ -129,7 +132,7 @@ extension EventVideoListViewController : UICollectionViewDataSource, UICollectio
         }
         return cell
     }
-    
+   
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        if let playList = eventVideo?.playlist {
 //            player = AVPlayer(url: playList[indexPath.item])
@@ -231,12 +234,63 @@ extension EventVideoListViewController : UICollectionViewDataSource, UICollectio
     }
     
 }
+extension EventVideoListViewController : VideosDelegate {
+    func videoselectButtonTapped(videoSelected: Video) {
+        //
+    }
+    
+    func playButtonTapped(playVideo: URL) {
+        //        if let playList = eventVideo?.playlist {
+        //            player = AVPlayer(url: playList[indexPath.item])
+        //        }
+              
+                print("video", sharedVideos)
+              //  sharedVideos = sharedVideos.filter({ $0 != ".DS_Store" })
+               // player = AVPlayer(url: sharedVideos[indexPath.item])
+                player = AVPlayer(url: playVideo)
+                playercontroller.player = player
+                self.playercontroller.modalPresentationStyle = .overFullScreen
+                
+                playercontroller.player = player
+                
+                //playercontroller.player?.volume = MPVolumeView.setVolume(0.8)
+                mpVolumeHolderView = UIView(frame: CGRect(x: 500, y:30, width: 150, height: 40))
+                mpVolumeHolderView.layer.cornerRadius = 20
+                // Set the holder view's background color to transparent
+                mpVolumeHolderView.backgroundColor = .black
+                let mpVolume = MPVolumeView(frame: mpVolumeHolderView.bounds)
+                mpVolume.showsRouteButton = true
+                
+             
+                mpVolumeHolderView.addSubview(mpVolume)
+                mpVolumeHolderView.bringSubviewToFront(mpVolume)
+                
+                self.playercontroller.showsPlaybackControls = true
+                
+                
+                mySlider!.addTarget(playercontroller.self, action: #selector(sliderValueDidChange(_:)), for: .allEvents)
+                //  self.playercontroller.player?.volume = mySlider?.value
+                self.present(self.playercontroller, animated: true, completion: {
+                    self.playercontroller.player?.play()
+                    
+                    // Fade player volume from 0 to 1 in 5 seconds
+                    
+                })
+                
+                
+                NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying(note:)),name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playercontroller.player?.currentItem)
+            
+                
+    }
+    
+    
+}
 
 
 extension EventVideoListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: 400, height: 300)
+        return CGSize(width: 450, height: 280)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return sectionInsets

@@ -145,7 +145,8 @@ extension VideoCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return backgroundFolder?.images.count ?? 0
+       // return backgroundFolder?.images.count ?? 0
+        return eventvideos.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -186,12 +187,16 @@ extension VideoCollectionViewController: UICollectionViewDataSource {
 }
 
 extension VideoCollectionViewController : UICollectionViewDelegate, VideosDelegate {
+    func playButtonTapped(playVideo: URL) {
+        //
+    }
+    
     func videoselectButtonTapped(videoSelected: Video) {
         let viewcontroller = EventVideoListViewController.instantiate(fromStoryboard: .Main)
         viewcontroller.labelName = videoSelected.vtitle
         viewcontroller.displayImage = self.backgroundImage
         viewcontroller.eventVideo = videoSelected
-               self.navigationController?.pushViewController(viewcontroller, animated: true)
+        self.navigationController?.pushViewController(viewcontroller, animated: true)
     }
     
     

@@ -1,18 +1,16 @@
 PODS:
-  - ImageSlideshow (1.9.2):
-    - ImageSlideshow/Core (= 1.9.2)
-  - ImageSlideshow/Core (1.9.2)
+  - SwiftPhotoGallery (3.4.1)
 
 DEPENDENCIES:
-  - ImageSlideshow (~> 1.9.0)
+  - SwiftPhotoGallery
 
 SPEC REPOS:
   trunk:
-    - ImageSlideshow
+    - SwiftPhotoGallery
 
 SPEC CHECKSUMS:
-  ImageSlideshow: be305b54eaf2b2cfc7a7141c7c734605d44dc07d
+  SwiftPhotoGallery: 795b79e2596beb160fb978e232603da0811006ce
 
-PODFILE CHECKSUM: eefdaf05de87ee52123b77f283e22cd08a5c4530
+PODFILE CHECKSUM: b40d3ed4c79b4427809ae18ebf04a9dbf24f8f0f
 
 COCOAPODS: 1.11.3

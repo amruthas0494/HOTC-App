@@ -9,13 +9,13 @@
 import UIKit
 import Foundation
 struct Photo {
-    let title: String
+    let title: String?
     let thumbnail: URL?
     let images: [URL]
 }
 
 struct Video {
-    let vtitle: String
+    let vtitle: String?
     var vthumbnail: VideoThumbnails
     let playlist: [URL]
     //    let thumbnails : [URL]
@@ -195,12 +195,17 @@ class DisplayFolderViewController: UIViewController {
                             print("true")
                             let photoTypeDir = getSubDirectories(of: photosDir)
                             for url in photoTypeDir {
-                                let photoItem = Photo(title: url.directoryName.uppercased(), thumbnail:getAllFiles(of: url).first, images: getAllFiles(of: url))
+                                var imagesList  = getAllFiles(of: url)
+                                
+                                imagesList.sort {
+                                    ($0.pathComponents.last?.components(separatedBy: ".").first)! < ($1.pathComponents.last?.components(separatedBy: ".").first)!
+                                }
+                                let photoItem = Photo(title: url.directoryName, thumbnail:getAllFiles(of: url).first, images:imagesList)
                                 // print(photoItem)
                                 photos.append(photoItem)
                                 //standardImg.append(contentsOf: photoItem.images)
                             }
-                            // self.getPhotsFolderNames()
+                            
                             
                         }
                         else {
@@ -221,87 +226,60 @@ class DisplayFolderViewController: UIViewController {
                                 if background.isHavingFiles {
                                     //print(background)
                                     var backgroundImages = getAllFiles(of: background)
-                                   
-                                   
-                                  //  backgroundImages.removeFirst()
+                                    
+                                    
+                                    //  backgroundImages.removeFirst()
                                     var backgroundItem = Background(images:backgroundImages)
-                                   
+                                    
                                     print(backgroundItem)
                                     backgroundFolder = backgroundItem
                                     
-                                   // print("no images")
+                                    // print("no images")
                                 }
                             }
                             videoTypesDir.sort {
                                 ($0.pathComponents.last?.components(separatedBy: ".").first)! < ($1.pathComponents.last?.components(separatedBy: ".").first)!
                             }
-//                            let sortedURLs = vide.sorted { a, b in
-//                                return a.lastPathComponent
-//                                    .localizedStandardCompare(b.lastPathComponent)
-//                                        == ComparisonResult.orderedAscending
-//                            }
+                            //
                             videoTypesDir = videoTypesDir.filter{ $0.directoryName != "Background" ||  $0.directoryName != "BACKGROUND" }
                             print(videoTypesDir)
-                         
+                            
                             
                             for videoUrl in videoTypesDir {
-                               // self.names = videoUrl.directoryName.uppercased()
-                               // videothumbnail?.thumbnails.removeAll()
+                                // self.names = videoUrl.directoryName.uppercased()
+                                // videothumbnail?.thumbnails.removeAll()
                                 var videosFiles = videoUrl.allFiles
-                              
+                                
                                 print(videosFiles)
                                 if let thumbNail = videosFiles.filter { $0.directoryName == "Thumbnails" }.first {
                                     if ((thumbNail.isHavingFiles) != nil) {
                                         var allThumbNails = getAllFiles(of: thumbNail)
-                                          print("filter",allThumbNails)
+                                        print("filter",allThumbNails)
                                         
-                                       
-                                       // print("filter",allThumbNails)
-//                                        allThumbNails.map { url in
-//                                                    (url.lastPathComponent, (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? Date.distantPast)
-//                                                }.sorted(by: { $0.1 > $1.1 }) // sort descending modification dates
-//                                        .map { $0.0 }
+                                        
                                         allThumbNails.sort {
                                             ($0.pathComponents.last?.components(separatedBy: ".").first)! < ($1.pathComponents.last?.components(separatedBy: ".").first)!
                                         }
-//                                        allThumbNails.filter(){ $0.dire != ".DS_Store"}
-                                       // allThumbNails.removeFirst()
-                                       
-                                            print("filter",allThumbNails)
-//
+                                        //
+                                        
+                                        print("filter",allThumbNails)
+                                        //
                                         var thumbnailFiles = VideoThumbnails(thumbnails:allThumbNails )
                                         print(thumbnailFiles)
                                         videothumbnail = thumbnailFiles
                                         
-                                    
+                                        
                                         //
                                     }
                                     
                                 }
-                            
-                                videosFiles = videosFiles.filter(){ $0.directoryName != "Thumbnails"}
-                             playListURL = videosFiles
+                                
+                                videosFiles = videosFiles.filter(){ $0.directoryName != "Thumbnails" || $0.directoryName != "THUMBNAILS"}
+                                playListURL = videosFiles
                                 playListURL.sort {
                                     ($0.pathComponents.last?.components(separatedBy: ".").first)! < ($1.pathComponents.last?.components(separatedBy: ".").first)!
                                 }
-                                //print(videosFiles)
-                           
-                             /*   for video in videosFiles {
                                 
-                                    playListURL.append(video)
-                                 
-                                    
-                                }
-                                playListURL.map { url in
-                                            (url.lastPathComponent, (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? Date.distantPast)
-                                        }.sorted(by: { $0.1 > $1.1 }) // sort descending modification dates
-                                .map { $0.0 }*/
-                                
-                                
-//                                playListURL.sort {
-//                                        ($0.pathComponents.last?.components(separatedBy: ".").first)! < ($1.pathComponents.last?.components(separatedBy: ".").first)!
-//                                    }
-                                //playListURL.removeFirst()
                                 if let thumbNail = videothumbnail {
                                     let eachVideoFolder = Video(vtitle: videoUrl.directoryName, vthumbnail: thumbNail, playlist: playListURL)
                                     
@@ -309,8 +287,8 @@ class DisplayFolderViewController: UIViewController {
                                     
                                     print(videos)
                                 }
-                              
-                              
+                                
+                                
                                 
                             }
                             

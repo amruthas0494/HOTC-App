@@ -57,7 +57,7 @@ class PhotoEventDisplayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      // print(viewImages)
+       print(viewImages)
         
       self.nameOutlet.text = labelName
         eventCollection.dataSource = self
@@ -116,11 +116,13 @@ extension PhotoEventDisplayViewController : UICollectionViewDataSource {
                  if let data = try? Data( contentsOf: event)
                  {
                    DispatchQueue.main.async {
-                     cell.eventPhotos.image = UIImage( data:data)
+                       cell.eventPhotos.image = UIImage( data:data)?.asOriginal
                      
                    }
                  }
               }
+        cell.eventPhotos.clipsToBounds = true
+        cell.eventPhotos.contentMode = .scaleAspectFill
 
         return cell
     }
@@ -129,12 +131,13 @@ extension PhotoEventDisplayViewController : UICollectionViewDataSource {
 extension PhotoEventDisplayViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let viewcontroller = SwipeImageViewController.instantiate(fromStoryboard: .Main)
-     
+        let viewcontroller = SwipeLeftRightViewController.instantiate(fromStoryboard: .Main)
+
         viewcontroller.headerLabel = labelName
         viewcontroller.selectedImage = indexPath.item
         viewcontroller.images = viewImages
         self.navigationController?.pushViewController(viewcontroller, animated: true)
+        
 
      
     }
@@ -159,5 +162,21 @@ extension PhotoEventDisplayViewController : CustomLayoutDelegate {
         return  swipImages[indexPath.item].size.height
     }
 
+    
+}
+
+
+extension UIImage {
+    
+    /// SwifterSwift: UIImage with .alwaysOriginal rendering mode.
+    var asOriginal: UIImage {
+        return withRenderingMode(.alwaysOriginal)
+    }
+    
+    /// SwifterSwift: UIImage with .alwaysTemplate rendering mode.
+    var asTemplate: UIImage {
+        return withRenderingMode(.alwaysTemplate)
+    }
+    
     
 }

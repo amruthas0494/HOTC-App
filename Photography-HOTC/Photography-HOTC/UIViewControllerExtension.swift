@@ -21,7 +21,7 @@ extension UIViewController {
     /// For closing the view controller currently presented
     func dismissVC() {
         if self.isModal() {
-            dismiss(animated: true, completion: nil)
+            dismiss(animated: false, completion: nil)
         } else {
             navigationController?.popToRootViewController(animated: true)
         }

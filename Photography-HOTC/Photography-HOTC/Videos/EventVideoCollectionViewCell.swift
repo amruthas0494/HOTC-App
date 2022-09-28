@@ -22,14 +22,19 @@ class EventVideoCollectionViewCell: UICollectionViewCell {
                     if let data = try? Data( contentsOf: thumbNailDetails)
                 {
                   DispatchQueue.main.async {
-                    self.displayTumbnail.image = UIImage( data:data)
+                      self.displayTumbnail.image = UIImage( data:data)?.asOriginal
                   }
                 }
              }
+                self.clipsToBounds = true
+                self.displayTumbnail.contentMode = .scaleToFill
                 
            }
             }
         }
+    
+    var delegate: VideosDelegate?
+    var playVideo: URL?
     
     // MARK: - awakeFromNib
     override func awakeFromNib() {
@@ -41,4 +46,13 @@ class EventVideoCollectionViewCell: UICollectionViewCell {
         // function which is triggered when handleTap is called
        
     }
+    
+    @IBAction func videoButtonTapped(_ sender: UIButton) {
+        if let videoPlayed = playVideo {
+            self.delegate?.playButtonTapped(playVideo: videoPlayed)
+        }
+        
+        
+    }
+    
 }

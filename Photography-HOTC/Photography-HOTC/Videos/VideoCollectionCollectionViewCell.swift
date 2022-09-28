@@ -9,6 +9,7 @@
 import UIKit
 protocol VideosDelegate:AnyObject {
     func videoselectButtonTapped(videoSelected:Video)
+    func playButtonTapped(playVideo:URL)
 }
 
 class VideoCollectionCollectionViewCell: UICollectionViewCell {
@@ -25,15 +26,12 @@ class VideoCollectionCollectionViewCell: UICollectionViewCell {
     var videoadded: Video? {
         didSet {
             videoLabel.text = videoadded?.vtitle
-//            if let videoDetails = videoadded {
-//                videoLabel.text = videoDetails.vtitle
-//
-//           }
+
             }
         }
     
-   
     var delegate: VideosDelegate?
+   
   
     
     // MARK: - awakeFromNib

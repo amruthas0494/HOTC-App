@@ -6,10 +6,8 @@ target 'Photography-HOTC' do
   use_frameworks!
 
   # Pods for Photography-HOTC
- 
- pod 'ImageSlideshow', '~> 1.9.0'
 
-
+  pod 'SwiftPhotoGallery'
 
   target 'Photography-HOTCTests' do
     inherit! :search_paths
@@ -18,7 +16,6 @@ target 'Photography-HOTC' do
 
   target 'Photography-HOTCUITests' do
     # Pods for testing
-  
   end
 
 end
